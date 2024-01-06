@@ -18,8 +18,6 @@
 #include "AlienShip.h"
 #include "AlienMissile.h"
 
-
-
 /*! An enumeration to represent the three win conditions for understandable transportation
 */
 enum WinCondition
@@ -28,8 +26,6 @@ enum WinCondition
 	AllAliensDestroyed,
 	AliensOnOuterCircle
 };
-
-
 
 /*! An enumeration to represent which key has been pressed on the input
 */
@@ -60,9 +56,11 @@ public:
 	//! Default constructor
 	Graphics ();
 	//! Constructor with parameters
-	Graphics (int& width, int& height);
+	Graphics (int width, int height);
 	//! Destructor
 	~Graphics();
+
+	void Initialise(int screenWidth, int screenHeight);
 
 	//! Returns a Keyboard enum depending on which key on the keyboard is pressed
 	Keyboard CheckKeyboard();
@@ -86,7 +84,6 @@ public:
 	void DrawLoadError();
 	//! Draws a specific graphic if level is loaded successfully
 	void DrawLoadCorrect();
-
 
 private:
 		// Private member functions
@@ -124,9 +121,12 @@ private:
 	//! Function to draw a star at a random x and y position on the screen (within the screen size limits)
 	void DrawRandomStars();
 
-
 		// Private data members
-	SDL_Surface* screen; //!< stores a pointer to the SDL_Surface that all graphics will be drawn to
+	SDL_Window* window; // The window we will be rendering to
+//	SDL_Surface* screen; //!< stores a pointer to the SDL_Surface that all graphics will be drawn to
+	// SDL surface vs renderer: https://gamedev.stackexchange.com/questions/180077/in-sdl-what-is-the-difference-between-using-a-surfaces-and-a-renderer
+	// TLDR: renderer runs on GPU, surface runs on CPU, so use render.
+	SDL_Renderer* renderer;
 	SDL_Event event; //!< event is an object of SDL_Event class, used for sensing keyboard events
 
 	const char* WINDOW_TITLE; //!< stores the name that appears at the title bar of the window

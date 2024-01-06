@@ -8,54 +8,95 @@
 
 #include "SDL.h"
 #include "SDL_gfxPrimitives.h"
+#include <SDL_ttf.h>
 #include "Graphics.h"
 #include "PlayerMissile.h"
 #include "Game.h"
 #include <iostream>
 #include <sstream>
+#include <string>
 
 using namespace std;
 
 //Screen dimension constants
-const int SCREEN_WIDTH = 640;
-const int SCREEN_HEIGHT = 480;
+const int SCREEN_WIDTH = 800;
+const int SCREEN_HEIGHT = 700;
 
 //!Default constructor which initializes all keyboard inputs to false
 Graphics::Graphics()
 {
-	for ( int i=0 ; i<323 ; i++ )
-	{
-		keysHeld[i] = false;		 // all keyboard inputs will be initialized to false
-	}
+	printf("Graphics::constructor called\n");
+
+//	for ( int i=0 ; i<323 ; i++ )
+//	{
+//		keysHeld[i] = false;		 // all keyboard inputs will be initialized to false
+//	}
+
+	Initialise(SCREEN_WIDTH, SCREEN_HEIGHT);
 }
 
 /*! Constructor which accepts two parameters to set the various properties ot he SDL screen
 \param windowWidth an integer which sets the width of the game window
 \param windowHeight an integer which sets the height of the game window
 */
-Graphics::Graphics (int& windowWidth, int& windowHeight)
+Graphics::Graphics (int windowWidth, int windowHeight)
 {
-	WINDOW_WIDTH = windowWidth;
-	WINDOW_HEIGHT = windowHeight;
-	WINDOW_TITLE = "Alien Annihilation";
+	printf("Graphics::constructor with params called\n");
 
-//	SDL_Init( SDL_INIT_VIDEO );
-
-	// decomment for full screen
+	// old way to set full screen
 //	screen = SDL_SetVideoMode( WINDOW_WIDTH, WINDOW_HEIGHT, 0, SDL_HWSURFACE | SDL_DOUBLEBUF  | SDL_FULLSCREEN );
 //	screen = SDL_SetVideoMode( WINDOW_WIDTH, WINDOW_HEIGHT, 0, SDL_HWSURFACE | SDL_DOUBLEBUF);
-//	SDL_WM_SetCaption( WINDOW_TITLE, 0 );
 	
 //	for (int i = 0; i < 323; i++)
 //	{
 //		keysHeld[i] = false;		 // all keyboard inputs will be initialized to false
 //	}
+
+	Initialise(windowWidth, windowHeight);
 }
 
 //!Graphics class destructor which quits SDL
 Graphics :: ~Graphics()
 {
-	SDL_Quit();		
+	printf("Graphics::destructor called\n");
+
+	//Destroy window
+	if (window != NULL)
+	{
+		SDL_DestroyWindow(window);
+	}
+
+	//Quit SDL subsystems
+	SDL_Quit();
+}
+
+void Graphics::Initialise(int screenWidth, int screenHeight)
+{
+	printf("Graphics::Initialise called\n");
+
+	//Initialize SDL
+	if (SDL_Init(SDL_INIT_VIDEO) < 0)
+	{
+		printf("SDL could not initialize! SDL_Error: %s\n", SDL_GetError());
+	}
+	else
+	{
+		//Create window
+		window = SDL_CreateWindow("Alien Annihilation", SDL_WINDOWPOS_UNDEFINED, SDL_WINDOWPOS_UNDEFINED, screenWidth, screenHeight, SDL_WINDOW_SHOWN);
+		if (window == NULL)
+		{
+			printf("Window could not be created! SDL_Error: %s\n", SDL_GetError());
+		}
+		else
+		{
+			// Create renderer
+			renderer = SDL_CreateRenderer(window, -1, SDL_RENDERER_ACCELERATED);
+			if (renderer == NULL)
+			{
+				printf("Renderer could not be setup! SDL_Error: %s\n", SDL_GetError());
+			}
+		}
+	}
 }
 
 //! Function to check which keys have been pressed on the keyboard
@@ -147,17 +188,38 @@ void Graphics::DrawScreen(Battlefield& gameBattlefield, PlayerShip& gamePlayerSh
 */
 void Graphics::DrawStartMenu()
 {
-	printf("Graphics::DrawStartMenu\n");
+	printf("Graphics::DrawStartMenu called\n");
 	ClearScreen();
-	printf("Graphics > cleared screen\n");
 
+	printf("Graphics::DrawStartMenu > draw stars\n");
 //	for ( int i=0 ; i<50 ; i++ )
 //	{
 //		DrawRandomStars();
 //	}
 
-//	boxRGBA(screen, WINDOW_WIDTH/2-200, WINDOW_HEIGHT/2-130,  WINDOW_WIDTH/2+200, WINDOW_HEIGHT/2+130, 0, 0, 255, 255);
-//	boxRGBA(screen, WINDOW_WIDTH/2-190, WINDOW_HEIGHT/2-120,  WINDOW_WIDTH/2+190, WINDOW_HEIGHT/2+120, 255, 255, 255, 255);
+	// DLLINTERFACE int boxRGBA (SDL_Surface *dst, Sint16 x1, Sint16 y1, Sint16 x2, Sint16 y2, Uint8 r, Uint8 g, Uint8 b, Uint8 a);
+	// boxRGBA(screen, WINDOW_WIDTH/2-200, WINDOW_HEIGHT/2-130,  WINDOW_WIDTH/2+200, WINDOW_HEIGHT/2+130, 0, 0, 255, 255);
+	// boxRGBA(screen, WINDOW_WIDTH/2-190, WINDOW_HEIGHT/2-120,  WINDOW_WIDTH/2+190, WINDOW_HEIGHT/2+120, 255, 255, 255, 255);
+	
+	// Set render color to red (rect will be rendered in this color)
+	SDL_SetRenderDrawColor(renderer, 255, 0, 0, 255);
+
+	// Creat rect
+	SDL_Rect r;
+	r.x = SCREEN_WIDTH / 2 - 200;
+	r.y = SCREEN_HEIGHT / 2 - 130;
+	r.w = 400;
+	r.h = 400;
+
+	// Render rect
+//	SDL_RenderFillRect(renderer, &r);
+	SDL_RenderDrawRect(renderer, &r);
+
+	r.x = r.x + 10;
+	r.y = r.y + 10;
+	r.w = r.w - 20;
+	r.h = r.h - 20;
+	SDL_RenderDrawRect(renderer, &r);
 
 	//char argument1[] = "Alien Annihilation";
 	//stringRGBA(screen, WINDOW_WIDTH/2-85, WINDOW_HEIGHT/2-90, argument1, 255, 0, 0, 255);
@@ -165,6 +227,64 @@ void Graphics::DrawStartMenu()
 	//stringRGBA(screen, WINDOW_WIDTH/2-25, WINDOW_HEIGHT/2-70, argument2, 0, 0, 0, 255);
 	//char argument3[] = "Copyright 2007";
 	//stringRGBA(screen, WINDOW_WIDTH/2-70, WINDOW_HEIGHT/2-60, argument3, 0, 0, 0, 255);
+
+
+
+	TTF_Init();
+	TTF_Font* font = TTF_OpenFont("assets/white-rabbit.ttf", 24);
+	SDL_Color White = { 255, 255, 255 };
+	SDL_Rect Message_rect; //create a rect
+
+	SDL_Surface* surfaceMessage = TTF_RenderText_Solid(font, "Alien Annihilation", White);
+	SDL_Texture* Message = SDL_CreateTextureFromSurface(renderer, surfaceMessage);
+	Message_rect.x = SCREEN_WIDTH / 4;
+	Message_rect.y = 50;
+	Message_rect.w = SCREEN_WIDTH / 2; // controls the width of the rect
+	Message_rect.h = 30; // controls the height of the rect
+	SDL_RenderCopy(renderer, Message, NULL, &Message_rect);
+
+	surfaceMessage = TTF_RenderText_Solid(font, "v1.0", White);
+	Message = SDL_CreateTextureFromSurface(renderer, surfaceMessage);
+	Message_rect.x = SCREEN_WIDTH / 4;
+	Message_rect.y = 80;
+	Message_rect.w = SCREEN_WIDTH / 20; // controls the width of the rect
+	Message_rect.h = 30; // controls the height of the rect
+	SDL_RenderCopy(renderer, Message, NULL, &Message_rect);
+
+	surfaceMessage = TTF_RenderText_Solid(font, "Copyright 2007", White);
+	Message = SDL_CreateTextureFromSurface(renderer, surfaceMessage);
+	Message_rect.x = SCREEN_WIDTH / 4;
+	Message_rect.y = 110;
+	Message_rect.w = SCREEN_WIDTH / 2; // controls the width of the rect
+	Message_rect.h = 30; // controls the height of the rect
+	SDL_RenderCopy(renderer, Message, NULL, &Message_rect);
+
+
+
+	SDL_FreeSurface(surfaceMessage);
+	SDL_DestroyTexture(Message);
+
+
+
+
+
+	//TTF_Font* font = TTF_OpenFont("assets/white-rabbit.ttf", 24);
+	//SDL_Color textColor = { 255, 255, 255, 0 };
+	//SDL_Surface* textSurface = TTF_RenderText_Solid(font, "put your text here", textColor);
+	//SDL_Texture* Message = SDL_CreateTextureFromSurface(renderer, textSurface);
+
+	//SDL_Rect Message_rect; //create a rect
+	//Message_rect.x = 0;  //controls the rect's x coordinate 
+	//Message_rect.y = 0; // controls the rect's y coordinte
+	//Message_rect.w = 100; // controls the width of the rect
+	//Message_rect.h = 100; // controls the height of the rect
+
+	//SDL_RenderCopy(renderer, Message, NULL, &Message_rect);
+	//SDL_FreeSurface(textSurface);
+	//SDL_DestroyTexture(Message);
+
+
+
 
 	//char argument4[] = "Miroslav Minev";
 	//stringRGBA(screen, WINDOW_WIDTH/2-70, WINDOW_HEIGHT/2-40, argument4, 0, 0, 0, 255);
@@ -219,58 +339,15 @@ void Graphics::DrawPauseMenu()
 /*!Function to clear the entire screen
 
 */
-//void Graphics::ClearScreen()
-//{
-//	SDL_FillRect(screen, NULL, SDL_MapRGB(screen->format,0,0,0));
-//}
-
-/*!Function to clear the entire screen
-
-*/
 void Graphics::ClearScreen()
 {
-	printf("Graphics::ClearScreen\n");
+//	SDL_FillRect(screen, NULL, SDL_MapRGB(screen->format,0,0,0));
 
-	//The window we'll be rendering to
-	SDL_Window* window = NULL;
+	// Set render color to black (background will be rendered in this color)
+	SDL_SetRenderDrawColor(renderer, 0, 0, 0, 255);
 
-	//The surface contained by the window
-	SDL_Surface* screenSurface = NULL;
-
-	//Initialize SDL
-	if (SDL_Init(SDL_INIT_VIDEO) < 0)
-	{
-		printf("SDL could not initialize! SDL_Error: %s\n", SDL_GetError());
-	}
-	else
-	{
-		//Create window
-		window = SDL_CreateWindow("SDL Tutorial", SDL_WINDOWPOS_UNDEFINED, SDL_WINDOWPOS_UNDEFINED, SCREEN_WIDTH, SCREEN_HEIGHT, SDL_WINDOW_SHOWN);
-		if (window == NULL)
-		{
-			printf("Window could not be created! SDL_Error: %s\n", SDL_GetError());
-		}
-		else
-		{
-			//Get window surface
-			screenSurface = SDL_GetWindowSurface(window);
-
-			//Fill the surface white
-			SDL_FillRect(screenSurface, NULL, SDL_MapRGB(screenSurface->format, 0xFF, 0xFF, 0xFF));
-
-			//Update the surface
-			SDL_UpdateWindowSurface(window);
-
-			//Hack to get window to stay up
-			SDL_Event e; bool quit = false; while (quit == false) { while (SDL_PollEvent(&e)) { if (e.type == SDL_QUIT) quit = true; } }
-		}
-	}
-
-	//Destroy window
-	SDL_DestroyWindow(window);
-
-	//Quit SDL subsystems
-	SDL_Quit();
+	// Clear window
+	SDL_RenderClear(renderer);
 }
 
 /*!Function to draw the entrie Battlefield
@@ -434,87 +511,18 @@ void Graphics::DrawFilledEllipse(int centre_x, int centre_y, int radius_x, int r
 //	SDL_Flip(screen);
 //}
 
-/*!Function to reveal the screen
+/*!Draw objects on screen
 
 */
 void Graphics::RevealScreen()
 {
-	//The window we'll be rendering to
-	SDL_Window* window = NULL;
+	printf("Graphics::RevealScreen called\n");
 
-	//The surface contained by the window
-//	SDL_Surface* screenSurface = NULL;
+	// Render the rect to the screen
+	SDL_RenderPresent(renderer);
 
-	//Initialize SDL
-	if (SDL_Init(SDL_INIT_VIDEO) < 0)
-	{
-		printf("SDL could not initialize! SDL_Error: %s\n", SDL_GetError());
-	}
-	else
-	{
-		//Create window
-		window = SDL_CreateWindow("Alien Annihilation", SDL_WINDOWPOS_UNDEFINED, SDL_WINDOWPOS_UNDEFINED, SCREEN_WIDTH, SCREEN_HEIGHT, SDL_WINDOW_SHOWN);
-		if (window == NULL)
-		{
-			printf("Window could not be created! SDL_Error: %s\n", SDL_GetError());
-		}
-		else
-		{
-			//Get window surface
-//			screenSurface = SDL_GetWindowSurface(window);
-
-			//Fill the surface white
-//			SDL_FillRect(screenSurface, NULL, SDL_MapRGB(screenSurface->format, 0x11, 0xFF, 0x88));
-
-			//Update the surface
-//			SDL_UpdateWindowSurface(window);
-
-
-
-
-
-
-			// Setup renderer
-			SDL_Renderer* renderer = NULL;
-			renderer = SDL_CreateRenderer(window, -1, SDL_RENDERER_ACCELERATED);
-
-			// Set render color to red ( background will be rendered in this color )
-			SDL_SetRenderDrawColor(renderer, 255, 0, 0, 255);
-
-			// Clear winow
-			SDL_RenderClear(renderer);
-
-			// Creat a rect at pos ( 50, 50 ) that's 50 pixels wide and 50 pixels high.
-			SDL_Rect r;
-			r.x = 50;
-			r.y = 50;
-			r.w = 50;
-			r.h = 50;
-
-			// Set render color to blue ( rect will be rendered in this color )
-			SDL_SetRenderDrawColor(renderer, 0, 0, 255, 255);
-
-			// Render rect
-//			SDL_RenderFillRect(renderer, &r);
-			SDL_RenderDrawRect(renderer, &r);
-
-			// Render the rect to the screen
-			SDL_RenderPresent(renderer);
-
-
-
-
-
-			//Hack to get window to stay up
-			SDL_Event e; bool quit = false; while (quit == false) { while (SDL_PollEvent(&e)) { if (e.type == SDL_QUIT) quit = true; } }
-		}
-	}
-
-	//Destroy window
-	SDL_DestroyWindow(window);
-
-	//Quit SDL subsystems
-	SDL_Quit();
+	//Hack to get window to stay up
+	SDL_Event e; bool quit = false; while (quit == false) { while (SDL_PollEvent(&e)) { if (e.type == SDL_QUIT) quit = true; } }
 }
 
 /*!A function to iterate through the vector of the player missiles and drsw each missile to the screen

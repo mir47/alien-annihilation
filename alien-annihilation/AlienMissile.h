@@ -14,9 +14,7 @@
 #include "Battlefield.h"
 #include "Missile.h" 
 
-
 using namespace std;
-
 
 //! Class implementation to create a AlienMissile
 /*! AlienMissile is a class that creates alien missiles and contains functions for moving these missiles. AlienMissile is derived from the Missile class.

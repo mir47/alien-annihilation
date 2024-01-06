@@ -11,14 +11,11 @@
 
 using namespace std;
 
-
 int main(int argc, char **argv)
 {
-
-	int windowWidth = 800;
-	int windowHeight = 700;
-	
-
+//	int windowWidth = 800;
+//	int windowHeight = 700;
+//
 //	bool playGame = true;
 //	while (playGame)
 //	{
@@ -26,11 +23,8 @@ int main(int argc, char **argv)
 //		playGame = AlienAnnihilation.RunGame();
 //	}
 
-
-
-
 	printf("Creating game\n");
-	Game AlienAnnihilation(windowWidth, windowHeight);
+	Game AlienAnnihilation;
 	printf("Running game\n");
 	bool playGame = AlienAnnihilation.RunGame();
 	if (playGame) {
@@ -41,7 +35,5 @@ int main(int argc, char **argv)
 		printf("playGame false\n");
 	}
 
-
 	return 0;
-
 }
