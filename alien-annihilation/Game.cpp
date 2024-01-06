@@ -57,7 +57,6 @@ Game::Game(int windowWidth, int windowHeight):_gameGraphics (windowWidth, window
 */
 bool Game::RunGame()
 {
-	
 	bool gameRunning1 = false;
 	int randomShootTime;
 	string settingsFile = "settings1.txt";
@@ -67,6 +66,7 @@ bool Game::RunGame()
 
 	_loadSuccessful = true;
 	gameStart = StartMenu(playerInput);
+	printf("Created StartMenu\n");
 
 	switch (gameStart)
 	{

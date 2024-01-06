@@ -16,6 +16,10 @@
 
 using namespace std;
 
+//Screen dimension constants
+const int SCREEN_WIDTH = 640;
+const int SCREEN_HEIGHT = 480;
+
 //!Default constructor which initializes all keyboard inputs to false
 Graphics::Graphics()
 {
@@ -23,7 +27,6 @@ Graphics::Graphics()
 	{
 		keysHeld[i] = false;		 // all keyboard inputs will be initialized to false
 	}
-
 }
 
 /*! Constructor which accepts two parameters to set the various properties ot he SDL screen
@@ -36,25 +39,24 @@ Graphics::Graphics (int& windowWidth, int& windowHeight)
 	WINDOW_HEIGHT = windowHeight;
 	WINDOW_TITLE = "Alien Annihilation";
 
-	SDL_Init( SDL_INIT_VIDEO );
+//	SDL_Init( SDL_INIT_VIDEO );
 
 	// decomment for full screen
 //	screen = SDL_SetVideoMode( WINDOW_WIDTH, WINDOW_HEIGHT, 0, SDL_HWSURFACE | SDL_DOUBLEBUF  | SDL_FULLSCREEN );
-	screen = SDL_SetVideoMode( WINDOW_WIDTH, WINDOW_HEIGHT, 0, SDL_HWSURFACE | SDL_DOUBLEBUF);
-	SDL_WM_SetCaption( WINDOW_TITLE, 0 );
+//	screen = SDL_SetVideoMode( WINDOW_WIDTH, WINDOW_HEIGHT, 0, SDL_HWSURFACE | SDL_DOUBLEBUF);
+//	SDL_WM_SetCaption( WINDOW_TITLE, 0 );
 	
-	for ( int i=0 ; i<323 ; i++ )
-	{
-		keysHeld[i] = false;		 // all keyboard inputs will be initialized to false
-	}
-
+//	for (int i = 0; i < 323; i++)
+//	{
+//		keysHeld[i] = false;		 // all keyboard inputs will be initialized to false
+//	}
 }
+
 //!Graphics class destructor which quits SDL
 Graphics :: ~Graphics()
 {
 	SDL_Quit();		
 }
-
 
 //! Function to check which keys have been pressed on the keyboard
 Keyboard Graphics::CheckKeyboard()
@@ -92,12 +94,12 @@ Keyboard Graphics::CheckKeyboard()
 				return key_3;
 
 		}
+
 		if (event.type == SDL_KEYUP)
 		{
 			keysHeld[event.key.keysym.sym] = false;
 		}
 	}
-
 
 	if ( keysHeld[SDLK_LEFT] )
 	{
@@ -108,14 +110,8 @@ Keyboard Graphics::CheckKeyboard()
 		return key_right;
 	}
 
-
 	return key_none;
 }
-
-
-
-
-
 
 /*! Function that draws all elements on the screen
 \param gameBattlefield a Battlefield type
@@ -127,7 +123,8 @@ Keyboard Graphics::CheckKeyboard()
 void Graphics::DrawScreen(Battlefield& gameBattlefield, PlayerShip& gamePlayerShip, 
 						  vector<AlienShip>& AlienShipVector, vector<PlayerMissile>& PlayerMissilesVector,
 						  vector<AlienMissile>& AlienMissilesVector) 
-{																					
+{
+	printf("Graphics DrawScreen\n");
 	ClearScreen();
 
 	for ( int i=0 ; i<50 ; i++ )
@@ -145,106 +142,136 @@ void Graphics::DrawScreen(Battlefield& gameBattlefield, PlayerShip& gamePlayerSh
 	RevealScreen();
 }
 
-
-
-
 /*!Function to draw the start menu of the game
 
 */
 void Graphics::DrawStartMenu()
 {
-	ClearScreen();	
+	printf("Graphics::DrawStartMenu\n");
+	ClearScreen();
+	printf("Graphics > cleared screen\n");
 
-	for ( int i=0 ; i<50 ; i++ )
-	{
-		DrawRandomStars();
-	}
+//	for ( int i=0 ; i<50 ; i++ )
+//	{
+//		DrawRandomStars();
+//	}
 
+//	boxRGBA(screen, WINDOW_WIDTH/2-200, WINDOW_HEIGHT/2-130,  WINDOW_WIDTH/2+200, WINDOW_HEIGHT/2+130, 0, 0, 255, 255);
+//	boxRGBA(screen, WINDOW_WIDTH/2-190, WINDOW_HEIGHT/2-120,  WINDOW_WIDTH/2+190, WINDOW_HEIGHT/2+120, 255, 255, 255, 255);
 
-	boxRGBA(screen, WINDOW_WIDTH/2-200, WINDOW_HEIGHT/2-130,  WINDOW_WIDTH/2+200, WINDOW_HEIGHT/2+130, 
-			0, 0, 255, 255);
-	boxRGBA(screen, WINDOW_WIDTH/2-190, WINDOW_HEIGHT/2-120,  WINDOW_WIDTH/2+190, WINDOW_HEIGHT/2+120, 
-			255, 255, 255, 255);
+	//char argument1[] = "Alien Annihilation";
+	//stringRGBA(screen, WINDOW_WIDTH/2-85, WINDOW_HEIGHT/2-90, argument1, 255, 0, 0, 255);
+	//char argument2[] = "v1.0";
+	//stringRGBA(screen, WINDOW_WIDTH/2-25, WINDOW_HEIGHT/2-70, argument2, 0, 0, 0, 255);
+	//char argument3[] = "Copyright 2007";
+	//stringRGBA(screen, WINDOW_WIDTH/2-70, WINDOW_HEIGHT/2-60, argument3, 0, 0, 0, 255);
 
-	stringRGBA(screen, WINDOW_WIDTH/2-85, WINDOW_HEIGHT/2-90, "Alien Annihilation",
-			      255, 0, 0, 255);
-	stringRGBA(screen, WINDOW_WIDTH/2-25, WINDOW_HEIGHT/2-70, "v1.0",
-			      0, 0, 0, 255);
-	stringRGBA(screen, WINDOW_WIDTH/2-70, WINDOW_HEIGHT/2-60, "Copyright 2007",
-			      0, 0, 0, 255);
+	//char argument4[] = "Miroslav Minev";
+	//stringRGBA(screen, WINDOW_WIDTH/2-70, WINDOW_HEIGHT/2-40, argument4, 0, 0, 0, 255);
+	//char argument5[] = "Andrew Russell";
+	//stringRGBA(screen, WINDOW_WIDTH/2-70, WINDOW_HEIGHT/2-30, argument5, 0, 0, 0, 255);
 
-	stringRGBA(screen, WINDOW_WIDTH/2-70, WINDOW_HEIGHT/2-40, "Miroslav Minev",
-			      0, 0, 0, 255);
-	stringRGBA(screen, WINDOW_WIDTH/2-70, WINDOW_HEIGHT/2-30, "Andrew Russell",
-			      0, 0, 0, 255);
+	//char argument6[] = "1 = play Level 1: rookie";
+	//stringRGBA(screen, WINDOW_WIDTH/2-120, WINDOW_HEIGHT/2-10, argument6, 40, 150, 40, 255);
+	//char argument7[] = "2 = play Level 2: experienced";
+	//stringRGBA(screen, WINDOW_WIDTH/2-120, WINDOW_HEIGHT/2+0, argument7, 40, 150, 40, 255);
+	//char argument8[] = "3 = play Level 3: vetran";
+	//stringRGBA(screen, WINDOW_WIDTH/2-120, WINDOW_HEIGHT/2+10, argument8, 40, 150, 40, 255);
+	//char argument9[] = "l = load saved game";
+	//stringRGBA(screen, WINDOW_WIDTH/2-120, WINDOW_HEIGHT/2+20, argument9, 40, 150, 40, 255);
+	//char argument10[] = "q = quit";
+	//stringRGBA(screen, WINDOW_WIDTH/2-120, WINDOW_HEIGHT/2+30, argument10, 40, 150, 40, 255);
 
-	stringRGBA(screen, WINDOW_WIDTH/2-120, WINDOW_HEIGHT/2-10, "1 = play Level 1: rookie",
-			      40, 150, 40, 255);
-	stringRGBA(screen, WINDOW_WIDTH/2-120, WINDOW_HEIGHT/2+0, "2 = play Level 2: experienced",
-			      40, 150, 40, 255);
-	stringRGBA(screen, WINDOW_WIDTH/2-120, WINDOW_HEIGHT/2+10, "3 = play Level 3: vetran",
-			      40, 150, 40, 255);
-	stringRGBA(screen, WINDOW_WIDTH/2-120, WINDOW_HEIGHT/2+20, "l = load saved game",
-			      40, 150, 40, 255);
-	stringRGBA(screen, WINDOW_WIDTH/2-120, WINDOW_HEIGHT/2+30, "q = quit",
-			      40, 150, 40, 255);
-
-	stringRGBA(screen, WINDOW_WIDTH/2-120, WINDOW_HEIGHT/2+50, "In-Game keys:",
-			      255, 0, 0, 255);
-	stringRGBA(screen, WINDOW_WIDTH/2-120, WINDOW_HEIGHT/2+70, "Left and Right arrow keys to move",
-			      255, 0, 0, 255);
-	stringRGBA(screen, WINDOW_WIDTH/2-120, WINDOW_HEIGHT/2+80, "Space to shoot",
-			      255, 0, 0, 255);
-	stringRGBA(screen, WINDOW_WIDTH/2-120, WINDOW_HEIGHT/2+90, "Escape to go to Pause menu",
-			      255, 0, 0, 255);
+	//char argument11[] = "In-Game keys:";
+	//stringRGBA(screen, WINDOW_WIDTH/2-120, WINDOW_HEIGHT/2+50, argument11, 255, 0, 0, 255);
+	//char argument12[] = "Left and Right arrow keys to move";
+	//stringRGBA(screen, WINDOW_WIDTH/2-120, WINDOW_HEIGHT/2+70, argument12, 255, 0, 0, 255);
+	//char argument13[] = "Space to shoot";
+	//stringRGBA(screen, WINDOW_WIDTH/2-120, WINDOW_HEIGHT/2+80, argument13, 255, 0, 0, 255);
+	//char argument14[] = "Escape to go to Pause menu";
+	//stringRGBA(screen, WINDOW_WIDTH/2-120, WINDOW_HEIGHT/2+90, argument14, 255, 0, 0, 255);
 
 	RevealScreen();
-
 }
-
-
-
 
 /*!Function to draw the start menu of the game
 
 */
 void Graphics::DrawPauseMenu()
 {
-    boxRGBA(screen, WINDOW_WIDTH/2-120, WINDOW_HEIGHT/2-60,  WINDOW_WIDTH/2+120, WINDOW_HEIGHT/2+60, 
-			100, 100, 100, 200);
+//    boxRGBA(screen, WINDOW_WIDTH/2-120, WINDOW_HEIGHT/2-60,  WINDOW_WIDTH/2+120, WINDOW_HEIGHT/2+60, 100, 100, 100, 200);
 
- 	stringRGBA(screen, WINDOW_WIDTH/2-25, WINDOW_HEIGHT/2-40, "Paused",
-			      255, 255, 255, 255);
+	//char argument1[] = "Paused";
+	//stringRGBA(screen, WINDOW_WIDTH/2-25, WINDOW_HEIGHT/2-40, argument1, 255, 255, 255, 255);
  
-	stringRGBA(screen, WINDOW_WIDTH/2-80, WINDOW_HEIGHT/2-20, "ESC = resume",
-			      255, 255, 255, 255);
-	stringRGBA(screen, WINDOW_WIDTH/2-80, WINDOW_HEIGHT/2-10, "r = return to main menu",
-			      255, 255, 255, 255);
-	stringRGBA(screen, WINDOW_WIDTH/2-80, WINDOW_HEIGHT/2+0, "s = save",
-			      255, 255, 255, 255);
-	stringRGBA(screen, WINDOW_WIDTH/2-80, WINDOW_HEIGHT/2+10, "q = quit",
-			      255, 255, 255, 255);
+	//char argument2[] = "ESC = resume";
+	//stringRGBA(screen, WINDOW_WIDTH/2-80, WINDOW_HEIGHT/2-20, argument2, 255, 255, 255, 255);
+	//char argument3[] = "r = return to main menu";
+	//stringRGBA(screen, WINDOW_WIDTH/2-80, WINDOW_HEIGHT/2-10, argument3, 255, 255, 255, 255);
+	//char argument4[] = "s = save";
+	//stringRGBA(screen, WINDOW_WIDTH/2-80, WINDOW_HEIGHT/2+0, argument4, 255, 255, 255, 255);
+	//char argument5[] = "q = quit";
+	//stringRGBA(screen, WINDOW_WIDTH/2-80, WINDOW_HEIGHT/2+10, argument5, 255, 255, 255, 255);
 
 	RevealScreen();
-
 }
 
+/*!Function to clear the entire screen
 
-
+*/
+//void Graphics::ClearScreen()
+//{
+//	SDL_FillRect(screen, NULL, SDL_MapRGB(screen->format,0,0,0));
+//}
 
 /*!Function to clear the entire screen
 
 */
 void Graphics::ClearScreen()
 {
-	SDL_FillRect(screen, NULL, SDL_MapRGB(screen->format,0,0,0));
+	printf("Graphics::ClearScreen\n");
+
+	//The window we'll be rendering to
+	SDL_Window* window = NULL;
+
+	//The surface contained by the window
+	SDL_Surface* screenSurface = NULL;
+
+	//Initialize SDL
+	if (SDL_Init(SDL_INIT_VIDEO) < 0)
+	{
+		printf("SDL could not initialize! SDL_Error: %s\n", SDL_GetError());
+	}
+	else
+	{
+		//Create window
+		window = SDL_CreateWindow("SDL Tutorial", SDL_WINDOWPOS_UNDEFINED, SDL_WINDOWPOS_UNDEFINED, SCREEN_WIDTH, SCREEN_HEIGHT, SDL_WINDOW_SHOWN);
+		if (window == NULL)
+		{
+			printf("Window could not be created! SDL_Error: %s\n", SDL_GetError());
+		}
+		else
+		{
+			//Get window surface
+			screenSurface = SDL_GetWindowSurface(window);
+
+			//Fill the surface white
+			SDL_FillRect(screenSurface, NULL, SDL_MapRGB(screenSurface->format, 0xFF, 0xFF, 0xFF));
+
+			//Update the surface
+			SDL_UpdateWindowSurface(window);
+
+			//Hack to get window to stay up
+			SDL_Event e; bool quit = false; while (quit == false) { while (SDL_PollEvent(&e)) { if (e.type == SDL_QUIT) quit = true; } }
+		}
+	}
+
+	//Destroy window
+	SDL_DestroyWindow(window);
+
+	//Quit SDL subsystems
+	SDL_Quit();
 }
-
-
-
-
-
-
 
 /*!Function to draw the entrie Battlefield
 \param gameBattlefield a variable of type Battlefield
@@ -254,10 +281,6 @@ void Graphics::DrawBattlefield (Battlefield& gameBattlefield)
 	DrawCircles (gameBattlefield);
 	DrawLines (gameBattlefield);
 }
-
-
-
-
 
 /*!Function to draw the circles of the Battlefield
 \param gameBattlefield a variable of type Battlefield
@@ -280,9 +303,6 @@ void Graphics::DrawCircles (Battlefield& gameBattlefield)
 	}
 }
 
-
-
-
 /*!Function to draw the lines of the Battlefield
 \param gameBattlefield a variable of type Battlefield
 */
@@ -303,9 +323,6 @@ void Graphics::DrawLines (Battlefield& gameBattlefield)
 	}
 }
 
-
-
-
 /*!Function to draw the Player ship
 \param gamePlayerShip a variable of type PlayerShip
 */
@@ -315,9 +332,7 @@ void Graphics::DrawPlayerShip (PlayerShip& gamePlayerShip)
 					 gamePlayerShip.get_sizeRadius_x(),		gamePlayerShip.get_sizeRadius_y(),
 					 gamePlayerShip.get_colourRed(),		gamePlayerShip.get_colourGreen(), 
 					 gamePlayerShip.get_colourBlue(),		gamePlayerShip.get_colourTransparency() );
-
 }
-
 
 /*!Function to draw the Player ships score
 \param gamePlayerShip a variable of type PlayerShip
@@ -337,14 +352,10 @@ void Graphics::DrawPlayerScore (PlayerShip& gamePlayerShip)
 	char score[10];
 	strcpy_s(score, out.str().c_str());
 
-	stringRGBA(screen, 30, 30, "score: ", 
-			      255, 255, 255, 255);
-	stringRGBA(screen, 90, 30, score, 
-			      255, 255, 255, 255);
+	char argument1[] = "score: ";
+//	stringRGBA(screen, 30, 30, argument1, 255, 255, 255, 255);
+//	stringRGBA(screen, 90, 30, score, 255, 255, 255, 255);
 }
-
-
-
 
 /*!A function to iterate through the vector of the alien ships and drsw each alien to the screen
 \param AlienShipVector a vector containing instances of type AlienShip
@@ -367,9 +378,6 @@ void Graphics::DrawAlienShips (vector<AlienShip>& AlienShipVector)
 	}
 }
 
-
-
-
 /*!Function to draw a single circle to the screen
 \param centre_x an integer that specifies the centre x coordinate of the circle
 \param centre_y an integer that specifies the centre y coordinate of the circle
@@ -383,14 +391,8 @@ void Graphics::DrawAlienShips (vector<AlienShip>& AlienShipVector)
 void Graphics::DrawSingleCircle(int centre_x, int centre_y, int radius_x, int radius_y,
 						  int red, int green, int blue, int transparency)						   
 {
-	ellipseRGBA(screen,
-				centre_x, centre_y,
-			    radius_x, radius_y,
-				red, green, blue, transparency);
+//	ellipseRGBA(screen, centre_x, centre_y, radius_x, radius_y, red, green, blue, transparency);
 }
-
-
-
 
 /*!Function to draw a single circle to the screen
 \param x1 an integer that specifies the start x coordinate of the line
@@ -405,15 +407,8 @@ void Graphics::DrawSingleCircle(int centre_x, int centre_y, int radius_x, int ra
 void Graphics::DrawSingleLine(int x1, int y1, int x2, int y2,
 						int red, int green, int blue, int transparency)					 
 {
-	lineRGBA(screen, 
-	 		 x1, y1,
-             x2, y2,
-             red, green, blue, transparency);
+//	lineRGBA(screen, x1, y1, x2, y2, red, green, blue, transparency);
 }
-
-
-
-
 
 /*!Function to draw a single filled ellipse to the screen
 \param centre_x an integer that specifies the centre x coordinate of the circle
@@ -428,28 +423,99 @@ void Graphics::DrawSingleLine(int x1, int y1, int x2, int y2,
 void Graphics::DrawFilledEllipse(int centre_x, int centre_y, int radius_x, int radius_y,
 						int red, int green, int blue, int transparency)
 {
-
-	filledEllipseRGBA(screen,
-	                  centre_x, centre_y,
-					  radius_x, radius_y,
-					  red, green, blue, transparency);	
-
+//	filledEllipseRGBA(screen, centre_x, centre_y, radius_x, radius_y, red, green, blue, transparency);
 }
 
+/*!Function to reveal the screen
 
-
+*/
+//void Graphics::RevealScreen()
+//{
+//	SDL_Flip(screen);
+//}
 
 /*!Function to reveal the screen
 
 */
 void Graphics::RevealScreen()
 {
-	SDL_Flip(screen);
+	//The window we'll be rendering to
+	SDL_Window* window = NULL;
+
+	//The surface contained by the window
+//	SDL_Surface* screenSurface = NULL;
+
+	//Initialize SDL
+	if (SDL_Init(SDL_INIT_VIDEO) < 0)
+	{
+		printf("SDL could not initialize! SDL_Error: %s\n", SDL_GetError());
+	}
+	else
+	{
+		//Create window
+		window = SDL_CreateWindow("Alien Annihilation", SDL_WINDOWPOS_UNDEFINED, SDL_WINDOWPOS_UNDEFINED, SCREEN_WIDTH, SCREEN_HEIGHT, SDL_WINDOW_SHOWN);
+		if (window == NULL)
+		{
+			printf("Window could not be created! SDL_Error: %s\n", SDL_GetError());
+		}
+		else
+		{
+			//Get window surface
+//			screenSurface = SDL_GetWindowSurface(window);
+
+			//Fill the surface white
+//			SDL_FillRect(screenSurface, NULL, SDL_MapRGB(screenSurface->format, 0x11, 0xFF, 0x88));
+
+			//Update the surface
+//			SDL_UpdateWindowSurface(window);
+
+
+
+
+
+
+			// Setup renderer
+			SDL_Renderer* renderer = NULL;
+			renderer = SDL_CreateRenderer(window, -1, SDL_RENDERER_ACCELERATED);
+
+			// Set render color to red ( background will be rendered in this color )
+			SDL_SetRenderDrawColor(renderer, 255, 0, 0, 255);
+
+			// Clear winow
+			SDL_RenderClear(renderer);
+
+			// Creat a rect at pos ( 50, 50 ) that's 50 pixels wide and 50 pixels high.
+			SDL_Rect r;
+			r.x = 50;
+			r.y = 50;
+			r.w = 50;
+			r.h = 50;
+
+			// Set render color to blue ( rect will be rendered in this color )
+			SDL_SetRenderDrawColor(renderer, 0, 0, 255, 255);
+
+			// Render rect
+//			SDL_RenderFillRect(renderer, &r);
+			SDL_RenderDrawRect(renderer, &r);
+
+			// Render the rect to the screen
+			SDL_RenderPresent(renderer);
+
+
+
+
+
+			//Hack to get window to stay up
+			SDL_Event e; bool quit = false; while (quit == false) { while (SDL_PollEvent(&e)) { if (e.type == SDL_QUIT) quit = true; } }
+		}
+	}
+
+	//Destroy window
+	SDL_DestroyWindow(window);
+
+	//Quit SDL subsystems
+	SDL_Quit();
 }
-
-
-
-
 
 /*!A function to iterate through the vector of the player missiles and drsw each missile to the screen
 \param PlayerMissilesVector a vector containing instances of type PlayerMissile
@@ -473,9 +539,6 @@ void Graphics::DrawPlayerMissiles (vector<PlayerMissile>& PlayerMissilesVector)
 	}
 }
 
-
-
-
 /*!A function to iterate through the vector of the alien missiles and drsw each missile to the screen
 \param AlienMissilesVector a vector containing instances of type AlienMissile
 */
@@ -494,10 +557,7 @@ void Graphics::DrawAlienMissiles (vector<AlienMissile>& AlienMissilesVector)
 		}
 		AlienMissilesVecIter++;
 	}
-
 }
-
-
 
 /*!A function to draw the game over condition to the screen
 \param gameBattlefield an instance of type Battlefield
@@ -521,93 +581,76 @@ void Graphics::DrawGameOver(Battlefield& gameBattlefield,  WinCondition gameEnd)
 	}
 
 	RevealScreen();
-
 }
 
 /*!A function to draw the game over condition which correspond to the case where all the aliens are destroyed*/
 void Graphics::DrawEnd_AllAliensDestroyed()
 {
-	boxRGBA(screen, WINDOW_WIDTH/2-190, WINDOW_HEIGHT/2-60,  WINDOW_WIDTH/2+190, WINDOW_HEIGHT/2+60, 
-			0, 255, 0, 150);
+//	boxRGBA(screen, WINDOW_WIDTH/2-190, WINDOW_HEIGHT/2-60,  WINDOW_WIDTH/2+190, WINDOW_HEIGHT/2+60, 0, 255, 0, 150);
 
-	stringRGBA(screen, WINDOW_WIDTH/2-180, WINDOW_HEIGHT/2-20, "You Win! - all alien ships heve been destroyed",
-			      255, 255, 255, 255);
+//	char argument1[] = "You Win! - all alien ships heve been destroyed";
+//	stringRGBA(screen, WINDOW_WIDTH/2-180, WINDOW_HEIGHT/2-20, argument1, 255, 255, 255, 255);
 
-	stringRGBA(screen, WINDOW_WIDTH/2-90, WINDOW_HEIGHT/2+20, "Press enter to continue",
-			      255, 255, 255, 255);
-
+//	char argument2[] = "Press enter to continue";
+//	stringRGBA(screen, WINDOW_WIDTH/2-90, WINDOW_HEIGHT/2+20, argument2, 255, 255, 255, 255);
 }
 
 /*!A function to draw the game over condition which correspond to the case where the aliens have reached the player base*/
 void Graphics::DrawEnd_AliensOnOuterCircle()
 {
-	boxRGBA(screen, WINDOW_WIDTH/2-190, WINDOW_HEIGHT/2-60,  WINDOW_WIDTH/2+190, WINDOW_HEIGHT/2+60, 
-			255, 0, 0, 150);
+//	boxRGBA(screen, WINDOW_WIDTH/2-190, WINDOW_HEIGHT/2-60,  WINDOW_WIDTH/2+190, WINDOW_HEIGHT/2+60, 255, 0, 0, 150);
 
-	stringRGBA(screen, WINDOW_WIDTH/2-180, WINDOW_HEIGHT/2-20, "GAME OVER - the aliens have invaded your base",
-			      255, 255, 255, 255);
+//	char argument1[] = "GAME OVER - the aliens have invaded your base";
+//	stringRGBA(screen, WINDOW_WIDTH/2-180, WINDOW_HEIGHT/2-20, argument1, 255, 255, 255, 255);
 
-	stringRGBA(screen, WINDOW_WIDTH/2-90, WINDOW_HEIGHT/2+20, "Press enter to continue",
-			      255, 255, 255, 255);
-
+//	char argument2[] = "Press enter to continue";
+//	stringRGBA(screen, WINDOW_WIDTH/2-90, WINDOW_HEIGHT/2+20, argument2, 255, 255, 255, 255);
 }
-
 
 /*!A function to draw the game over condition which correspond to the case where the player ship is destroyed*/
 void Graphics::DrawEnd_PlayerDestroyed()
 {
-	boxRGBA(screen, WINDOW_WIDTH/2-190, WINDOW_HEIGHT/2-60,  WINDOW_WIDTH/2+190, WINDOW_HEIGHT/2+60, 
-			255, 0, 0, 150);
+//	boxRGBA(screen, WINDOW_WIDTH/2-190, WINDOW_HEIGHT/2-60,  WINDOW_WIDTH/2+190, WINDOW_HEIGHT/2+60, 255, 0, 0, 150);
 
-	stringRGBA(screen, WINDOW_WIDTH/2-140, WINDOW_HEIGHT/2-20, "GAME OVER - you have been destroyed",
-			255, 255, 255, 255);
+//	char argument1[] = "GAME OVER - you have been destroyed";
+//	stringRGBA(screen, WINDOW_WIDTH/2-140, WINDOW_HEIGHT/2-20, argument1, 255, 255, 255, 255);
 
-	stringRGBA(screen, WINDOW_WIDTH/2-90, WINDOW_HEIGHT/2+20, "Press enter to continue",
-		    255, 255, 255, 255);
+//	char argument2[] = "Press enter to continue";
+//	stringRGBA(screen, WINDOW_WIDTH/2-90, WINDOW_HEIGHT/2+20, argument2, 255, 255, 255, 255);
 }
-
 
 /*!A function to draw the condition which correspond to the case where a game has not been succesfully loaded*/
 void Graphics::DrawLoadError()
 {
-	boxRGBA(screen, WINDOW_WIDTH/2-190, WINDOW_HEIGHT/2-60,  WINDOW_WIDTH/2+190, WINDOW_HEIGHT/2+60, 
-			255, 0, 0, 255);
+//	boxRGBA(screen, WINDOW_WIDTH/2-190, WINDOW_HEIGHT/2-60,  WINDOW_WIDTH/2+190, WINDOW_HEIGHT/2+60, 255, 0, 0, 255);
 
-	stringRGBA(screen, WINDOW_WIDTH/2-70, WINDOW_HEIGHT/2-20, "No saved games",
-			255, 255, 255, 255);
+//	char argument1[] = "No saved games";
+//	stringRGBA(screen, WINDOW_WIDTH/2-70, WINDOW_HEIGHT/2-20, argument1, 255, 255, 255, 255);
 
-	stringRGBA(screen, WINDOW_WIDTH/2-90, WINDOW_HEIGHT/2+20, "Press enter to continue",
-		    255, 255, 255, 255);
+//	char argument2[] = "Press enter to continue";
+//	stringRGBA(screen, WINDOW_WIDTH/2-90, WINDOW_HEIGHT/2+20, argument2, 255, 255, 255, 255);
 
 	RevealScreen();
-
-
 }
 
 /*!A function to draw the condition which correspond to the case where a game has been succesfully loaded*/
 void Graphics::DrawLoadCorrect()
 {
-	boxRGBA(screen, WINDOW_WIDTH/2-190, WINDOW_HEIGHT/2-60,  WINDOW_WIDTH/2+190, WINDOW_HEIGHT/2+60, 
-			0, 255, 0, 255);
+//	boxRGBA(screen, WINDOW_WIDTH/2-190, WINDOW_HEIGHT/2-60,  WINDOW_WIDTH/2+190, WINDOW_HEIGHT/2+60, 0, 255, 0, 255);
 
-	stringRGBA(screen, WINDOW_WIDTH/2-70, WINDOW_HEIGHT/2-20, "Saved game loaded",
-			255, 255, 255, 255);
+//	char argument1[] = "Saved game loaded";
+//	stringRGBA(screen, WINDOW_WIDTH/2-70, WINDOW_HEIGHT/2-20, argument1, 255, 255, 255, 255);
 
-	stringRGBA(screen, WINDOW_WIDTH/2-90, WINDOW_HEIGHT/2+20, "Press enter to play",
-		    255, 255, 255, 255);
+//	char argument2[] = "Press enter to play";
+//	stringRGBA(screen, WINDOW_WIDTH/2-90, WINDOW_HEIGHT/2+20, argument2, 255, 255, 255, 255);
 
 	RevealScreen();
-
-
 }
-
-
 
 //!A function to draw random stars on the screen
 void Graphics::DrawRandomStars()
 {
 	int x = rand()%WINDOW_WIDTH;
 	int y = rand()%WINDOW_HEIGHT;
-	pixelRGBA(screen, x, y, 255, 255, 255, 180);
-
+//	pixelRGBA(screen, x, y, 255, 255, 255, 180);
 }
