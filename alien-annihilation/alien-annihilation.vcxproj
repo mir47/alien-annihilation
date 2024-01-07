@@ -74,6 +74,10 @@
     <IncludePath>C:\vclib\SDL2_ttf-2.20.2\include;C:\vclib\SDL_gfxPrimitives-1.5;C:\vclib\SDL2-2.28.5\include;$(IncludePath)</IncludePath>
     <LibraryPath>C:\vclib\SDL2_ttf-2.20.2\lib\x64;C:\vclib\SDL_gfxPrimitives-1.5;C:\vclib\SDL2-2.28.5\lib\x64;$(LibraryPath)</LibraryPath>
   </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+    <IncludePath>C:\vclib\SDL2-2.28.5\include;C:\vclib\SDL2_gfx-1.0.4\include;C:\vclib\SDL2_ttf-2.20.2\include;$(IncludePath)</IncludePath>
+    <LibraryPath>C:\vclib\SDL2-2.28.5\lib\x86;C:\vclib\SDL2_gfx-1.0.4\lib\x86;C:\vclib\SDL2_ttf-2.20.2\lib\x86;$(LibraryPath)</LibraryPath>
+  </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <ClCompile>
       <WarningLevel>Level3</WarningLevel>
@@ -84,6 +88,7 @@
     <Link>
       <SubSystem>Console</SubSystem>
       <GenerateDebugInformation>true</GenerateDebugInformation>
+      <AdditionalDependencies>SDL2.lib;SDL2main.lib;SDL2_gfx.lib;SDL2_ttf.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">

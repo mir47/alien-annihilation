@@ -7,7 +7,7 @@
 */
 
 #include "SDL.h"
-#include "SDL_gfxPrimitives.h"
+#include "SDL2_gfxPrimitives.h"
 #include <SDL_ttf.h>
 #include "Graphics.h"
 #include "PlayerMissile.h"
@@ -27,10 +27,10 @@ Graphics::Graphics()
 {
 	printf("Graphics::constructor called\n");
 
-//	for ( int i=0 ; i<323 ; i++ )
-//	{
-//		keysHeld[i] = false;		 // all keyboard inputs will be initialized to false
-//	}
+	for ( int i=0 ; i<323 ; i++ )
+	{
+		keysHeld[i] = false;		 // all keyboard inputs will be initialized to false
+	}
 
 	Initialise(SCREEN_WIDTH, SCREEN_HEIGHT);
 }
@@ -47,10 +47,10 @@ Graphics::Graphics (int windowWidth, int windowHeight)
 //	screen = SDL_SetVideoMode( WINDOW_WIDTH, WINDOW_HEIGHT, 0, SDL_HWSURFACE | SDL_DOUBLEBUF  | SDL_FULLSCREEN );
 //	screen = SDL_SetVideoMode( WINDOW_WIDTH, WINDOW_HEIGHT, 0, SDL_HWSURFACE | SDL_DOUBLEBUF);
 	
-//	for (int i = 0; i < 323; i++)
-//	{
-//		keysHeld[i] = false;		 // all keyboard inputs will be initialized to false
-//	}
+	for (int i = 0; i < 323; i++)
+	{
+		keysHeld[i] = false;		 // all keyboard inputs will be initialized to false
+	}
 
 	Initialise(windowWidth, windowHeight);
 }
@@ -469,7 +469,7 @@ void Graphics::DrawFilledEllipse(int centre_x, int centre_y, int radius_x, int r
 						int red, int green, int blue, int transparency)
 {
 //	filledEllipseRGBA(screen, centre_x, centre_y, radius_x, radius_y, red, green, blue, transparency);
-	SDL_RenderDrawPoint(renderer, centre_x, centre_y);
+	filledEllipseRGBA(renderer, centre_x, centre_y, radius_x, radius_y, red, green, blue, transparency);
 }
 
 void Graphics::DrawText(char* text, int x, int y)
