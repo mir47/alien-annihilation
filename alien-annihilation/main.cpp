@@ -23,17 +23,15 @@ int main(int argc, char **argv)
 //		playGame = AlienAnnihilation.RunGame();
 //	}
 
-	printf("Creating game\n");
+	printf("main > Creating game\n");
 	Game AlienAnnihilation;
-	printf("Running game\n");
-	bool playGame = AlienAnnihilation.RunGame();
-	if (playGame) {
-		printf("playGame true\n");
+	printf("main > Running game\n");
+	bool gameRunning = true;
+	while (gameRunning) {
+		printf("game running...\n");
+		gameRunning = AlienAnnihilation.RunGame();
 	}
-	else 
-	{
-		printf("playGame false\n");
-	}
+	printf("game stopped\n");
 
 	return 0;
 }

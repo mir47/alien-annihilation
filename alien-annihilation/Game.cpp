@@ -16,7 +16,6 @@
 
 using namespace std;
 
-
 /*!	Default constructor initializes game with fixed parameters
 	*/
 Game::Game()
@@ -34,6 +33,7 @@ Game::Game()
 	_alienSize_y = 2;
 
 }
+
 /*!	Constructor which accepts width and height of the game window to create an object of the game
 \param windowWidth : width of game window
 \param windowHeight : height of game window
@@ -49,14 +49,14 @@ Game::Game(int windowWidth, int windowHeight):_gameGraphics (windowWidth, window
 	_playerSize_y = 5;
 	_alienSize_x = 9;
 	_alienSize_y = 2;
-
-
 }
 
 /*!	Function that controls the input logic from the Input class and runs the main game loop
 */
 bool Game::RunGame()
 {
+	printf("Game::RunGame\n");
+
 	bool gameRunning1 = false;
 	int randomShootTime;
 	string settingsFile = "settings1.txt";
@@ -66,7 +66,8 @@ bool Game::RunGame()
 
 	_loadSuccessful = true;
 	gameStart = StartMenu(playerInput);
-	printf("Created StartMenu\n");
+
+//	_gameGraphics.BlockScreen();
 
 	switch (gameStart)
 	{
@@ -79,41 +80,41 @@ bool Game::RunGame()
 			{
 				gameAction = playerInput.LoadScreen(_gameGraphics);
 			}
-
 			gameRunning1 = true;
 			break;
+
 		case quit:
-			gameRunning1 = false;
+			printf("Game::RunGame -> gameStart=quit\n");
+			return false;
 			break;
+
 		case settings_1:
 			Game::CreateAlienShipsVector();
 			gameRunning1 = true;
 			break;
+
 		case settings_2:
 			settingsFile = "settings2.txt";
 			Game::CreateAlienShipsVector();
 			gameRunning1 = true;
 			break;
+
 		case settings_3:
 			settingsFile = "settings3.txt";
 			Game::CreateAlienShipsVector();
 			gameRunning1 = true;
 			break;
-
 	}
+
 	Settings gameSettings(settingsFile);
 	_numberOfCircles = gameSettings.get_numberOfCircles();
 	_numberOfLines = gameSettings.get_numberOfLines();
 
-
-
 	if (!_loadSuccessful)
-		return 1;
-
+		return true;
 
 	CreateBattlefield();
 	CreatePlayerShip();
-
 
 	while (gameRunning1)
 	{
@@ -131,20 +132,19 @@ bool Game::RunGame()
 					break;
 	
 				case restart:
-					return 1;
+					return true;
 					break;
 
 				case save:
 					SaveGame();
-					return 1;
+					return true;
 					break;
 
 				case quit:
-					return 0;	
-	 				break;
+					return false;
+					break;
 			}
 		}
-
 
 		randomShootTime = rand()%100;
 		if (randomShootTime < 20 )
@@ -153,13 +153,9 @@ bool Game::RunGame()
 				AlienShoot();
 		}
 
-
 		UpdateAll ();
 		CollisionDetect ();
-
-
 		DisplayGame ();
-
 
 		if ( CheckGameOver ())
 		{
@@ -168,13 +164,11 @@ bool Game::RunGame()
 			{
 				gameAction = playerInput.EndScreen(_gameGraphics);
 			}
-			return 1;
+			return true;
 		}
-
 	}
 
-	return 0;
-
+	return false;
 }
 
 /*! Awaits for a possible input that is acceptable for the start menu.
@@ -183,6 +177,8 @@ bool Game::RunGame()
 */
 Action Game::StartMenu(Input& playerInput)
 {
+	printf("Game::StartMenu\n");
+
 	Action paused = noAction;
 	while (paused == noAction)
 	{
@@ -190,10 +186,7 @@ Action Game::StartMenu(Input& playerInput)
 		paused = playerInput.StartMenu(_gameGraphics);
 	}
 	return paused;
-
 }
-
-
 
 /*! Calls playership functions that move the playership or make it shoot.
 \param gameAction: Player action to be performed
@@ -604,8 +597,6 @@ void Game::UpdateAliens()
 
 }
 
-
-
 /*!	Function to iterate through vector of PlayerMissiles and call each PlayerMissile "Move" function if its state is 1 (alive) else erase it from the vector
 	*/
 void Game::UpdatePlayerMissiles()
@@ -628,9 +619,6 @@ void Game::UpdatePlayerMissiles()
 	}
 }
 
-
-
-
 /*!	Function to iterate through vector of AlienMissiles and call each AlienMissile "Move" function if its state is 1 (alive) else erase it from the vector
 	*/
 void Game::UpdateAlienMissiles()
@@ -652,13 +640,12 @@ void Game::UpdateAlienMissiles()
 	}
 }
 
-
-
-
 /*! Function that creates a vector of alien ships from the saved coordinates and healths, for when a level is loaded from the text file
 	*/
 bool Game::CreateSavedAlienShipsVector()
 {
+	printf("Game::CreateSavedAlienShipsVector\n");
+
 	_vectorAlienShips.clear();
 
 	float savedAngle;
@@ -670,7 +657,6 @@ bool Game::CreateSavedAlienShipsVector()
 	{
 		while (!loadGame.eof())
 		{
-			
 			loadGame >> savedAngle;
 			loadGame >> savedCircleIterator;
 			loadGame>>savedHealth;
@@ -680,21 +666,15 @@ bool Game::CreateSavedAlienShipsVector()
 							_alienSize_x, _alienSize_y,
 							0, 50+5, 10+20, savedHealth );
 
-			_vectorAlienShips.push_back(tempAlienShip);
-
-					
+			_vectorAlienShips.push_back(tempAlienShip);	
 		}
 		loadGame.close();
 		_gameGraphics.DrawLoadCorrect();
 		return 1;
-
 	}
 	else 
 	{
 		_gameGraphics.DrawLoadError();
 		return 0;
-
 	}
-
-
 }

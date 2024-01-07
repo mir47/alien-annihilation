@@ -103,10 +103,17 @@ void Graphics::Initialise(int screenWidth, int screenHeight)
 //! Function to check which keys have been pressed on the keyboard
 Keyboard Graphics::CheckKeyboard()
 {
-	if (SDL_PollEvent(&event))
+	printf("Graphics::CheckKeyboard\n");
+
+	int poll = SDL_PollEvent(&event);
+
+	if (poll)
 	{
+		printf("Graphics::CheckKeyboard -> SDL_PollEvent\n");
+
 		if (event.type == SDL_QUIT)
 		{
+			printf("Graphics::CheckKeyboard -> quit\n");
 			return key_q;
 		}
 
@@ -122,8 +129,10 @@ Keyboard Graphics::CheckKeyboard()
 				return key_enter;
 			if (event.key.keysym.sym == SDLK_r)
 				return key_r;
-			if (event.key.keysym.sym == SDLK_q)
+			if (event.key.keysym.sym == SDLK_q) {
+				printf("Graphics::CheckKeyboard -> key q\n");
 				return key_q;
+			}
 			if (event.key.keysym.sym == SDLK_s)
 				return key_s;
 			if (event.key.keysym.sym == SDLK_l)
@@ -134,7 +143,6 @@ Keyboard Graphics::CheckKeyboard()
 				return key_2;
 			if (event.key.keysym.sym == SDLK_3)
 				return key_3;
-
 		}
 
 		if (event.type == SDL_KEYUP)
@@ -143,14 +151,21 @@ Keyboard Graphics::CheckKeyboard()
 		}
 	}
 
-	if ( keysHeld[SDLK_LEFT] )
-	{
-		return key_left;
-	}
-	if ( keysHeld[SDLK_RIGHT] )
-	{
-		return key_right;
-	}
+//	bool left = keysHeld[SDLK_LEFT];
+//	printf("Graphics::CheckKeyboard > left=%d\n", left);
+//	bool right = keysHeld[SDLK_RIGHT];
+//	printf("Graphics::CheckKeyboard > right=%d\n", right);
+
+	//if (keysHeld[SDLK_LEFT])
+	//{
+	//	printf("Graphics::CheckKeyboard > SDLK_LEFT\n");
+	//	return key_left;
+	//}
+	//else if (keysHeld[SDLK_RIGHT])
+	//{
+	//	printf("Graphics::CheckKeyboard > SDLK_RIGHT\n");
+	//	return key_right;
+	//}
 
 	return key_none;
 }
@@ -171,7 +186,7 @@ void Graphics::DrawScreen(Battlefield& gameBattlefield, PlayerShip& gamePlayerSh
 
 	for ( int i=0 ; i<50 ; i++ )
 	{
-		DrawRandomStars();
+		DrawRandomStar();
 	}
 
 	DrawBattlefield(gameBattlefield);
@@ -189,13 +204,12 @@ void Graphics::DrawScreen(Battlefield& gameBattlefield, PlayerShip& gamePlayerSh
 */
 void Graphics::DrawStartMenu()
 {
-	printf("Graphics::DrawStartMenu called\n");
+	printf("Graphics::DrawStartMenu\n");
 	ClearScreen();
 
-	printf("Graphics::DrawStartMenu > draw stars\n");
 	for ( int i=0 ; i<50 ; i++ )
 	{
-		DrawRandomStars();
+		DrawRandomStar();
 	}
 
 	// Set render color to red (rect will be rendered in this color)
@@ -512,13 +526,28 @@ void Graphics::DrawText(char* text, int x, int y)
 */
 void Graphics::RevealScreen()
 {
-	printf("Graphics::RevealScreen called\n");
-
-	// Render the rect to the screen
 	SDL_RenderPresent(renderer);
+	SDL_Delay(100);
+}
 
-	//Hack to get window to stay up
-	SDL_Event e; bool quit = false; while (quit == false) { while (SDL_PollEvent(&e)) { if (e.type == SDL_QUIT) quit = true; } }
+void Graphics::BlockScreen()
+{
+	printf("Graphics::BlockScreen\n");
+
+	// Hack to get window to stay up
+	SDL_Event e;
+	bool quit = false;
+	while (quit == false)
+	{
+		while (SDL_PollEvent(&e))
+		{
+//			printf("in SDL_PollEvent\n");
+			if (e.type == SDL_QUIT) {
+				printf("event SDL_QUIT\n");
+				quit = true;
+			}
+		}
+	}
 }
 
 /*!A function to iterate through the vector of the player missiles and drsw each missile to the screen
@@ -652,9 +681,10 @@ void Graphics::DrawLoadCorrect()
 }
 
 //!A function to draw random stars on the screen
-void Graphics::DrawRandomStars()
+void Graphics::DrawRandomStar()
 {
 	int x = rand()%SCREEN_WIDTH;
 	int y = rand()%SCREEN_HEIGHT;
-//	pixelRGBA(screen, x, y, 255, 255, 255, 180);
+	SDL_SetRenderDrawColor(renderer, 0xFF, 0xFF, 0xFF, 0xFF);
+	SDL_RenderDrawPoint(renderer, x, y);
 }

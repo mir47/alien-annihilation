@@ -46,14 +46,14 @@ Action Input::InGame(Graphics& gameGraphics)
 	return noAction;
 }
 
-
-
 /*! Checks for applicable keyboard inputs at the start menu. Keyboard inputs are sensed from the Graphics class.
 	\param gameGraphics : Object of Graphics that contains function for physically ckecking which key was pressed on the keyboard
 	\return Action : an enumeration for what action needs to be performed depending on what key was pressed
 */
 Action Input::StartMenu(Graphics& gameGraphics)
 {
+	printf("Input::StartMenu\n");
+
 	Keyboard keyPressed = gameGraphics.CheckKeyboard();
 
 	if (keyPressed != key_none)
@@ -79,17 +79,10 @@ Action Input::StartMenu(Graphics& gameGraphics)
 			case key_3:
 				return settings_3;
 				break;
-
 		}
-
 	}
-
 	return noAction;
-
 }
-
-
-
 
 /*! Checks for applicable keyboard inputs at the pause menu. 
 	\param gameGraphics : Object of Graphics that contains function for physically ckecking which key was pressed on the keyboard

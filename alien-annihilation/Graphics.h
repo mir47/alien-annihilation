@@ -85,6 +85,8 @@ public:
 	//! Draws a specific graphic if level is loaded successfully
 	void DrawLoadCorrect();
 
+	void BlockScreen();
+
 private:
 		// Private member functions
 	//! Draws a single circle on the screen depending on what parameters are passed to it
@@ -120,7 +122,7 @@ private:
 	void DrawPlayerScore (PlayerShip& gamePlayerShip);
 
 	//! Function to draw a star at a random x and y position on the screen (within the screen size limits)
-	void DrawRandomStars();
+	void DrawRandomStar();
 
 		// Private data members
 	SDL_Window* window; // The window we will be rendering to

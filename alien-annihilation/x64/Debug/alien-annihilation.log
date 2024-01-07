@@ -1,2 +1,6 @@
-﻿  Graphics.cpp
+﻿  Game.cpp
+C:\Users\minev\repo_miro\alien-annihilation\alien-annihilation\Game.cpp(508,22): warning C4305: 'initializing': truncation from 'double' to 'float'
+C:\Users\minev\repo_miro\alien-annihilation\alien-annihilation\Game.cpp(524,22): warning C4305: 'initializing': truncation from 'double' to 'float'
+C:\Users\minev\repo_miro\alien-annihilation\alien-annihilation\Game.cpp(537,34): warning C4244: '=': conversion from 'double' to 'float', possible loss of data
+C:\Users\minev\repo_miro\alien-annihilation\alien-annihilation\Game.cpp(540,26): warning C4305: '=': truncation from 'double' to 'float'
   alien-annihilation.vcxproj -> C:\Users\minev\repo_miro\alien-annihilation\x64\Debug\alien-annihilation.exe
