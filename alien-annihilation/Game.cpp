@@ -84,7 +84,6 @@ bool Game::RunGame()
 			break;
 
 		case quit:
-			printf("Game::RunGame -> gameStart=quit\n");
 			return false;
 			break;
 
@@ -106,21 +105,26 @@ bool Game::RunGame()
 			break;
 	}
 
+	printf("Game::RunGame -> loading settings...\n");
 	Settings gameSettings(settingsFile);
 	_numberOfCircles = gameSettings.get_numberOfCircles();
 	_numberOfLines = gameSettings.get_numberOfLines();
 
-	if (!_loadSuccessful)
+	if (!_loadSuccessful) {
 		return true;
+	}
 
 	CreateBattlefield();
 	CreatePlayerShip();
 
 	while (gameRunning1)
 	{
+		printf("Game::RunGame -> in loop gameRunning1...\n");
+		
 		gameAction = playerInput.InGame(_gameGraphics);
-		if (gameAction != noAction)
+		if (gameAction != noAction) {
 			gameRunning1 = DoAction(gameAction);
+		}
 
 		if (gameAction == pause)
 		{
@@ -149,15 +153,16 @@ bool Game::RunGame()
 		randomShootTime = rand()%100;
 		if (randomShootTime < 20 )
 		{
-			if ( 0 < _vectorAlienShips.size() )
+			if (0 < _vectorAlienShips.size()) {
 				AlienShoot();
+			}
 		}
 
-		UpdateAll ();
-		CollisionDetect ();
-		DisplayGame ();
+		UpdateAll();
+		CollisionDetect();
+		DisplayGame();
 
-		if ( CheckGameOver ())
+		if (CheckGameOver())
 		{
 			gameAction = noAction;
 			while (gameAction == noAction)
@@ -385,10 +390,6 @@ void Game::CollisionDetect_PlayerMissiles_AlienMissiles()
 
 }
 
-
-
-
-
 /*! Function that checks the three game over conditions:
 	1. If all the aliens are destroyed (player wins)
 	2. If one of the aliens is on the outer circle where the playership is (player loses)
@@ -397,7 +398,6 @@ void Game::CollisionDetect_PlayerMissiles_AlienMissiles()
 */
 bool Game::CheckGameOver()
 {
-
 	if (_vectorAlienShips.empty())
 	{
 		_gameGraphics.DrawGameOver(_gameBattlefield, AllAliensDestroyed);
@@ -415,28 +415,23 @@ bool Game::CheckGameOver()
 			return 1;
 		}
 		iter_vectorAlienShips++;
-		
 	}
 
 	if ( _gamePlayerShip.get_health() == 0)
 	{
 		_gameGraphics.DrawGameOver(_gameBattlefield, PlayerDestroyed); 
 		return 1;
-
 	}
 
 	return 0;
-
 }
-
 
 /*! Function that passes all the objects to a function of the Graphics class to be drawn on the Graphics screen
 	*/
 void Game::DisplayGame()
 {
-	_gameGraphics.DrawScreen( _gameBattlefield, _gamePlayerShip, _vectorAlienShips, _vectorPlayerMissiles, _vectorAlienMissiles);
+	_gameGraphics.DrawScreen(_gameBattlefield, _gamePlayerShip, _vectorAlienShips, _vectorPlayerMissiles, _vectorAlienMissiles);
 }
-
 
 /*! Function that saves AlienShip polar coordinates and health to a text file
 	*/
@@ -447,7 +442,7 @@ void Game::SaveGame()
 	vector<AlienShip>::iterator iter_vectorAlienShips;
 	iter_vectorAlienShips = _vectorAlienShips.begin();
 
-	while ( iter_vectorAlienShips != _vectorAlienShips.end() )
+	while (iter_vectorAlienShips != _vectorAlienShips.end())
 	{
 		savedGame << iter_vectorAlienShips ->get_angleFromCentre() << endl;
 		savedGame << iter_vectorAlienShips ->get_circleIterator() << endl;
@@ -460,8 +455,6 @@ void Game::SaveGame()
 	savedGame.close();
 }
 
-
-
 /*
 -------------------------------------------------------------------------------------------------------------------
 -------------------------------------------------------------------------------------------------------------------
@@ -469,8 +462,6 @@ void Game::SaveGame()
 -------------------------------------------------------------------------------------------------------------------
 -------------------------------------------------------------------------------------------------------------------
 */
-
-
 
 /*! Function that resests all the variables in the Battlefield object. A default Battlefield is created when the private data members are declared when an object of Game is declared. This function is to be called after the number of lines and number of circles are read in from the level text file. It creates new vectors of circles and lines.
 	*/
@@ -496,10 +487,7 @@ void Game::CreateBattlefield()
 
 	_gameBattlefield.CreateBattlefieldCirclesVector();
 	_gameBattlefield.CreateBattlefieldLinesVector();
-
 }
-
-
 
 /*! Function that creates the gamePlayerShip
 	*/
@@ -513,12 +501,12 @@ void Game::CreatePlayerShip()
 	_gamePlayerShip = tempPlayerShip;
 }
 
-
-
 /*! Function that creates a vector of alien ships for when a new level is created
 	*/
 void Game::CreateAlienShipsVector()
 {
+	printf("Game::CreateAlienShipsVector\n");
+
 	_vectorAlienShips.clear();
 
 	float startingAngle = 3.14159/2;
@@ -541,7 +529,6 @@ void Game::CreateAlienShipsVector()
 	}
 }
 
-
 /*! Function that creates a PlayerMissile when the player shoots
 	*/
 void Game::PlayerShoot()
@@ -549,9 +536,6 @@ void Game::PlayerShoot()
 	PlayerMissile tempPlayerMissile(_gamePlayerShip);
 	_vectorPlayerMissiles.push_back(tempPlayerMissile);
 }
-
-
-
 
 /*! Function that creates an AlienMissile when an AlienShip shoots and adds it to the vector of AlienMissiles
 	*/

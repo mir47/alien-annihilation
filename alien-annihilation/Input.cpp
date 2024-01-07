@@ -5,7 +5,6 @@
 
 using namespace std;
 
-
 /*! Default constructor to create an instance of Input
 */
 Input::Input()
@@ -81,6 +80,7 @@ Action Input::StartMenu(Graphics& gameGraphics)
 				break;
 		}
 	}
+
 	return noAction;
 }
 
@@ -111,16 +111,11 @@ Action Input::PauseMenu(Graphics& gameGraphics)
 			case key_q:
 				return quit;
 				break;
-
 		}
-
 	}
 
 	return noAction;
-
 }
-
-
 
 /*! Checks for applicable keyboard inputs at the GAME OVER screen. 
 	\param gameGraphics : Object of Graphics that contains function for physically ckecking which key was pressed on the keyboard
@@ -138,13 +133,10 @@ Action Input::EndScreen(Graphics& gameGraphics)
 				return restart;
 				break;
 		}
-
 	}
 
 	return noAction;
-
 }
-
 
 /*! Checks for applicable keyboard inputs at the screen shown after a game is loaded. 
 	\param gameGraphics : Object of Graphics that contains function for physically ckecking which key was pressed on the keyboard
@@ -162,11 +154,7 @@ Action Input::LoadScreen(Graphics& gameGraphics)
 				return 	resume;
 				break;
 		}
-
 	}
 
 	return noAction;
-
 }
-
-

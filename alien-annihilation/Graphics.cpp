@@ -181,7 +181,7 @@ void Graphics::DrawScreen(Battlefield& gameBattlefield, PlayerShip& gamePlayerSh
 						  vector<AlienShip>& AlienShipVector, vector<PlayerMissile>& PlayerMissilesVector,
 						  vector<AlienMissile>& AlienMissilesVector) 
 {
-	printf("Graphics DrawScreen\n");
+	printf("Graphics::DrawScreen\n");
 	ClearScreen();
 
 	for ( int i=0 ; i<50 ; i++ )
@@ -314,8 +314,10 @@ void Graphics::ClearScreen()
 */
 void Graphics::DrawBattlefield (Battlefield& gameBattlefield)
 {
-	DrawCircles (gameBattlefield);
-	DrawLines (gameBattlefield);
+	printf("Graphics::DrawBattlefield\n");
+
+	DrawCircles(gameBattlefield);
+	DrawLines(gameBattlefield);
 }
 
 /*!Function to draw the circles of the Battlefield
@@ -330,10 +332,16 @@ void Graphics::DrawCircles (Battlefield& gameBattlefield)
 	while (circlesVecIter != vecCircles.end())
 	{
 		// Draw circle (stored in battlefieldCirclesVector) pointed to by circlesVecIter
-		DrawSingleCircle(circlesVecIter->centre_x,	circlesVecIter->centre_y, 
-						circlesVecIter->radius_x,	circlesVecIter->radius_y,
-						circlesVecIter->colour_red,	circlesVecIter->colour_green,
-						circlesVecIter->colour_blue,circlesVecIter->colour_transparency);
+		DrawSingleCircle(
+			circlesVecIter->centre_x,
+			circlesVecIter->centre_y,
+			circlesVecIter->radius_x,
+			circlesVecIter->radius_y,
+			circlesVecIter->colour_red,
+			circlesVecIter->colour_green,
+			circlesVecIter->colour_blue,
+			circlesVecIter->colour_transparency
+		);
 
 		circlesVecIter++;
 	}
@@ -428,6 +436,7 @@ void Graphics::DrawSingleCircle(int centre_x, int centre_y, int radius_x, int ra
 						  int red, int green, int blue, int transparency)						   
 {
 //	ellipseRGBA(screen, centre_x, centre_y, radius_x, radius_y, red, green, blue, transparency);
+	SDL_RenderDrawPoint(renderer, centre_x, centre_y);
 }
 
 /*!Function to draw a single circle to the screen
@@ -460,6 +469,7 @@ void Graphics::DrawFilledEllipse(int centre_x, int centre_y, int radius_x, int r
 						int red, int green, int blue, int transparency)
 {
 //	filledEllipseRGBA(screen, centre_x, centre_y, radius_x, radius_y, red, green, blue, transparency);
+	SDL_RenderDrawPoint(renderer, centre_x, centre_y);
 }
 
 void Graphics::DrawText(char* text, int x, int y)
