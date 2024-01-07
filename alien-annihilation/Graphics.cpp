@@ -67,6 +67,7 @@ Graphics :: ~Graphics()
 	}
 
 	//Quit SDL subsystems
+	TTF_Quit();
 	SDL_Quit();
 }
 
@@ -192,24 +193,20 @@ void Graphics::DrawStartMenu()
 	ClearScreen();
 
 	printf("Graphics::DrawStartMenu > draw stars\n");
-//	for ( int i=0 ; i<50 ; i++ )
-//	{
-//		DrawRandomStars();
-//	}
+	for ( int i=0 ; i<50 ; i++ )
+	{
+		DrawRandomStars();
+	}
 
-	// DLLINTERFACE int boxRGBA (SDL_Surface *dst, Sint16 x1, Sint16 y1, Sint16 x2, Sint16 y2, Uint8 r, Uint8 g, Uint8 b, Uint8 a);
-	// boxRGBA(screen, WINDOW_WIDTH/2-200, WINDOW_HEIGHT/2-130,  WINDOW_WIDTH/2+200, WINDOW_HEIGHT/2+130, 0, 0, 255, 255);
-	// boxRGBA(screen, WINDOW_WIDTH/2-190, WINDOW_HEIGHT/2-120,  WINDOW_WIDTH/2+190, WINDOW_HEIGHT/2+120, 255, 255, 255, 255);
-	
 	// Set render color to red (rect will be rendered in this color)
 	SDL_SetRenderDrawColor(renderer, 255, 0, 0, 255);
 
 	// Creat rect
 	SDL_Rect r;
-	r.x = SCREEN_WIDTH / 2 - 200;
-	r.y = SCREEN_HEIGHT / 2 - 130;
-	r.w = 400;
-	r.h = 400;
+	r.x = SCREEN_WIDTH / 6;
+	r.y = SCREEN_HEIGHT / 3;
+	r.w = 4 * (SCREEN_WIDTH / 6);
+	r.h = 2 * (SCREEN_HEIGHT / 3) - 50;
 
 	// Render rect
 //	SDL_RenderFillRect(renderer, &r);
@@ -221,95 +218,43 @@ void Graphics::DrawStartMenu()
 	r.h = r.h - 20;
 	SDL_RenderDrawRect(renderer, &r);
 
-	//char argument1[] = "Alien Annihilation";
-	//stringRGBA(screen, WINDOW_WIDTH/2-85, WINDOW_HEIGHT/2-90, argument1, 255, 0, 0, 255);
-	//char argument2[] = "v1.0";
-	//stringRGBA(screen, WINDOW_WIDTH/2-25, WINDOW_HEIGHT/2-70, argument2, 0, 0, 0, 255);
-	//char argument3[] = "Copyright 2007";
-	//stringRGBA(screen, WINDOW_WIDTH/2-70, WINDOW_HEIGHT/2-60, argument3, 0, 0, 0, 255);
+	int titleX = SCREEN_WIDTH / 4;
+	int titleY = 50;
 
+	char s2[] = "Alien Annihilation";
+	DrawText(s2, titleX, titleY);
+	char s3[] = "v1.0";
+	DrawText(s3, titleX, titleY + 30);
+	char s4[] = "Copyright 2007";
+	DrawText(s4, titleX, titleY + 60);
 
+	char argument4[] = "Andrew Russell";
+	DrawText(argument4, titleX, titleY + 110);
+	char argument5[] = "Miroslav Minev";
+	DrawText(argument5, titleX, titleY + 140);
 
-	TTF_Init();
-	TTF_Font* font = TTF_OpenFont("assets/white-rabbit.ttf", 24);
-	SDL_Color White = { 255, 255, 255 };
-	SDL_Rect Message_rect; //create a rect
+	int optionsX = titleX - 30;
+	int optionsY = SCREEN_HEIGHT / 2 - 50;
 
-	SDL_Surface* surfaceMessage = TTF_RenderText_Solid(font, "Alien Annihilation", White);
-	SDL_Texture* Message = SDL_CreateTextureFromSurface(renderer, surfaceMessage);
-	Message_rect.x = SCREEN_WIDTH / 4;
-	Message_rect.y = 50;
-	Message_rect.w = SCREEN_WIDTH / 2; // controls the width of the rect
-	Message_rect.h = 30; // controls the height of the rect
-	SDL_RenderCopy(renderer, Message, NULL, &Message_rect);
+	char argument6[] = "1 = play Level 1: rookie";
+	DrawText(argument6, optionsX, optionsY);
+	char argument7[] = "2 = play Level 2: experienced";
+	DrawText(argument7, optionsX, optionsY + 30);
+	char argument8[] = "3 = play Level 3: vetran";
+	DrawText(argument8, optionsX, optionsY + (2 * 30));
+	char argument9[] = "l = load saved game";
+	DrawText(argument9, optionsX, optionsY + (3 * 30));
+	char argument10[] = "q = quit";
+	DrawText(argument10, optionsX, optionsY + (4 * 30));
 
-	surfaceMessage = TTF_RenderText_Solid(font, "v1.0", White);
-	Message = SDL_CreateTextureFromSurface(renderer, surfaceMessage);
-	Message_rect.x = SCREEN_WIDTH / 4;
-	Message_rect.y = 80;
-	Message_rect.w = SCREEN_WIDTH / 20; // controls the width of the rect
-	Message_rect.h = 30; // controls the height of the rect
-	SDL_RenderCopy(renderer, Message, NULL, &Message_rect);
-
-	surfaceMessage = TTF_RenderText_Solid(font, "Copyright 2007", White);
-	Message = SDL_CreateTextureFromSurface(renderer, surfaceMessage);
-	Message_rect.x = SCREEN_WIDTH / 4;
-	Message_rect.y = 110;
-	Message_rect.w = SCREEN_WIDTH / 2; // controls the width of the rect
-	Message_rect.h = 30; // controls the height of the rect
-	SDL_RenderCopy(renderer, Message, NULL, &Message_rect);
-
-
-
-	SDL_FreeSurface(surfaceMessage);
-	SDL_DestroyTexture(Message);
-
-
-
-
-
-	//TTF_Font* font = TTF_OpenFont("assets/white-rabbit.ttf", 24);
-	//SDL_Color textColor = { 255, 255, 255, 0 };
-	//SDL_Surface* textSurface = TTF_RenderText_Solid(font, "put your text here", textColor);
-	//SDL_Texture* Message = SDL_CreateTextureFromSurface(renderer, textSurface);
-
-	//SDL_Rect Message_rect; //create a rect
-	//Message_rect.x = 0;  //controls the rect's x coordinate 
-	//Message_rect.y = 0; // controls the rect's y coordinte
-	//Message_rect.w = 100; // controls the width of the rect
-	//Message_rect.h = 100; // controls the height of the rect
-
-	//SDL_RenderCopy(renderer, Message, NULL, &Message_rect);
-	//SDL_FreeSurface(textSurface);
-	//SDL_DestroyTexture(Message);
-
-
-
-
-	//char argument4[] = "Miroslav Minev";
-	//stringRGBA(screen, WINDOW_WIDTH/2-70, WINDOW_HEIGHT/2-40, argument4, 0, 0, 0, 255);
-	//char argument5[] = "Andrew Russell";
-	//stringRGBA(screen, WINDOW_WIDTH/2-70, WINDOW_HEIGHT/2-30, argument5, 0, 0, 0, 255);
-
-	//char argument6[] = "1 = play Level 1: rookie";
-	//stringRGBA(screen, WINDOW_WIDTH/2-120, WINDOW_HEIGHT/2-10, argument6, 40, 150, 40, 255);
-	//char argument7[] = "2 = play Level 2: experienced";
-	//stringRGBA(screen, WINDOW_WIDTH/2-120, WINDOW_HEIGHT/2+0, argument7, 40, 150, 40, 255);
-	//char argument8[] = "3 = play Level 3: vetran";
-	//stringRGBA(screen, WINDOW_WIDTH/2-120, WINDOW_HEIGHT/2+10, argument8, 40, 150, 40, 255);
-	//char argument9[] = "l = load saved game";
-	//stringRGBA(screen, WINDOW_WIDTH/2-120, WINDOW_HEIGHT/2+20, argument9, 40, 150, 40, 255);
-	//char argument10[] = "q = quit";
-	//stringRGBA(screen, WINDOW_WIDTH/2-120, WINDOW_HEIGHT/2+30, argument10, 40, 150, 40, 255);
-
-	//char argument11[] = "In-Game keys:";
-	//stringRGBA(screen, WINDOW_WIDTH/2-120, WINDOW_HEIGHT/2+50, argument11, 255, 0, 0, 255);
-	//char argument12[] = "Left and Right arrow keys to move";
-	//stringRGBA(screen, WINDOW_WIDTH/2-120, WINDOW_HEIGHT/2+70, argument12, 255, 0, 0, 255);
-	//char argument13[] = "Space to shoot";
-	//stringRGBA(screen, WINDOW_WIDTH/2-120, WINDOW_HEIGHT/2+80, argument13, 255, 0, 0, 255);
-	//char argument14[] = "Escape to go to Pause menu";
-	//stringRGBA(screen, WINDOW_WIDTH/2-120, WINDOW_HEIGHT/2+90, argument14, 255, 0, 0, 255);
+	char argument11[] = "In-Game keys:";
+	DrawText(argument11, optionsX, optionsY + (6 * 30));
+	char argument12[] = "Left and Right arrow keys to move";
+	DrawText(argument12, optionsX, optionsY + (7 * 30));
+	char argument13[] = "Space to shoot";
+	DrawText(argument13, optionsX, optionsY + (8 * 30));
+	char argument14[] = "Escape to go to Pause menu";
+	DrawText(argument14, optionsX, optionsY + (9 * 30));
 
 	RevealScreen();
 }
@@ -503,6 +448,57 @@ void Graphics::DrawFilledEllipse(int centre_x, int centre_y, int radius_x, int r
 //	filledEllipseRGBA(screen, centre_x, centre_y, radius_x, radius_y, red, green, blue, transparency);
 }
 
+void Graphics::DrawText(char* text, int x, int y)
+{
+	if (TTF_Init() == -1)
+	{
+		printf("SDL_ttf could not initialize! SDL_ttf Error: %s\n", TTF_GetError());
+	}
+	else {
+		TTF_Font* font = TTF_OpenFont("assets/white-rabbit.ttf", 24);
+		if (font == NULL)
+		{
+			printf("Failed to load font! SDL_ttf Error: %s\n", TTF_GetError());
+		}
+		else
+		{
+			SDL_Color White = { 255, 255, 255 };
+			SDL_Surface* textSurface = TTF_RenderText_Solid(font, text, White);
+			if (textSurface == NULL)
+			{
+				printf("Unable to render text surface! SDL_ttf Error: %s\n", TTF_GetError());
+			}
+			else
+			{
+				SDL_Rect textRect;
+				int width = textSurface->w;
+				int height = textSurface->h;
+				textRect.x = x;
+				textRect.y = y;
+				textRect.w = width;
+				textRect.h = height;
+
+				SDL_Texture* textTexture = SDL_CreateTextureFromSurface(renderer, textSurface);
+				if (textTexture == NULL)
+				{
+					printf("Unable to create texture from rendered text! SDL Error: %s\n", SDL_GetError());
+				}
+				else
+				{
+					SDL_RenderCopy(renderer, textTexture, NULL, &textRect);
+				}
+
+				SDL_FreeSurface(textSurface);
+				if (textTexture != NULL)
+				{
+					SDL_DestroyTexture(textTexture);
+				}
+			}
+			TTF_CloseFont(font);
+		}
+	}
+}
+
 /*!Function to reveal the screen
 
 */
@@ -658,7 +654,7 @@ void Graphics::DrawLoadCorrect()
 //!A function to draw random stars on the screen
 void Graphics::DrawRandomStars()
 {
-	int x = rand()%WINDOW_WIDTH;
-	int y = rand()%WINDOW_HEIGHT;
+	int x = rand()%SCREEN_WIDTH;
+	int y = rand()%SCREEN_HEIGHT;
 //	pixelRGBA(screen, x, y, 255, 255, 255, 180);
 }

@@ -96,6 +96,7 @@ private:
 	//! Draws a filled ellipse on the screen depending on what parameters are passed to it
 	void DrawFilledEllipse(int centre_x, int centre_y, int radius_x, int radius_y,
 						   int red, int green, int blue, int transparency);
+	void DrawText(char* text, int x, int y);
 
 	//! Clears the current screen that is being displayed
 	void ClearScreen();
