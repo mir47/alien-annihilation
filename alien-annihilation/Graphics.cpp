@@ -27,9 +27,10 @@ Graphics::Graphics()
 {
 	printf("Graphics::constructor called\n");
 
-	for ( int i=0 ; i<323 ; i++ )
+	for (int i = 0; i < 323; i++)
 	{
-		keysHeld[i] = false;		 // all keyboard inputs will be initialized to false
+		// initialize all keyboard inputs to false
+		keysHeld[i] = false;
 	}
 
 	Initialise(SCREEN_WIDTH, SCREEN_HEIGHT);
@@ -49,7 +50,8 @@ Graphics::Graphics(int windowWidth, int windowHeight)
 	
 	for (int i = 0; i < 323; i++)
 	{
-		keysHeld[i] = false;		 // all keyboard inputs will be initialized to false
+		// initialize all keyboard inputs to false
+		keysHeld[i] = false;
 	}
 
 	Initialise(windowWidth, windowHeight);
@@ -105,9 +107,7 @@ Keyboard Graphics::CheckKeyboard()
 {
 	printf("Graphics::CheckKeyboard\n");
 
-	int poll = SDL_PollEvent(&event);
-
-	if (poll)
+	if (SDL_PollEvent(&event))
 	{
 		printf("Graphics::CheckKeyboard -> SDL_PollEvent\n");
 
@@ -187,17 +187,17 @@ void Graphics::DrawScreen(
 	printf("Graphics::DrawScreen\n");
 	ClearScreen();
 
-	for ( int i=0 ; i<50 ; i++ )
+	for (int i = 0; i < 50; i++)
 	{
 		DrawRandomStar();
 	}
 
 	DrawBattlefield(gameBattlefield);
-	DrawAlienShips (AlienShipVector);
-	DrawPlayerMissiles (PlayerMissilesVector);
-	DrawAlienMissiles (AlienMissilesVector);
-	DrawPlayerShip (gamePlayerShip);
-	DrawPlayerScore (gamePlayerShip);
+	DrawAlienShips(AlienShipVector);
+	DrawPlayerMissiles(PlayerMissilesVector);
+	DrawAlienMissiles(AlienMissilesVector);
+	DrawPlayerShip(gamePlayerShip);
+	DrawPlayerScore(gamePlayerShip);
 
 	RevealScreen();
 }
@@ -215,63 +215,33 @@ void Graphics::DrawStartMenu()
 		DrawRandomStar();
 	}
 
-	// Set render color to red (rect will be rendered in this color)
-	SDL_SetRenderDrawColor(renderer, 255, 0, 0, 255);
+	boxRGBA(renderer, SCREEN_WIDTH / 2 - 200, SCREEN_HEIGHT / 2 - 130, SCREEN_WIDTH / 2 + 200, SCREEN_HEIGHT / 2 + 130, 0, 0, 255, 255);
 
-	// Creat rect
-	SDL_Rect r;
-	r.x = SCREEN_WIDTH / 6;
-	r.y = SCREEN_HEIGHT / 3;
-	r.w = 4 * (SCREEN_WIDTH / 6);
-	r.h = 2 * (SCREEN_HEIGHT / 3) - 50;
-
-	// Render rect
-//	SDL_RenderFillRect(renderer, &r);
-	SDL_RenderDrawRect(renderer, &r);
-
-	r.x = r.x + 10;
-	r.y = r.y + 10;
-	r.w = r.w - 20;
-	r.h = r.h - 20;
-	SDL_RenderDrawRect(renderer, &r);
+	boxRGBA(renderer, SCREEN_WIDTH / 2 - 190, SCREEN_HEIGHT / 2 - 120, SCREEN_WIDTH / 2 + 190, SCREEN_HEIGHT / 2 + 120, 255, 255, 255, 255);
 
 	int titleX = SCREEN_WIDTH / 4;
 	int titleY = 50;
 
-	char s2[] = "Alien Annihilation";
-	DrawText(s2, titleX, titleY);
-	char s3[] = "v1.0";
-	DrawText(s3, titleX, titleY + 30);
-	char s4[] = "Copyright 2007";
-	DrawText(s4, titleX, titleY + 60);
+	stringRGBA(renderer, SCREEN_WIDTH / 2 - 85, SCREEN_HEIGHT / 2 - 90, "Alien Annihilation", 255, 0, 0, 255);
+	stringRGBA(renderer, SCREEN_WIDTH / 2 - 25, SCREEN_HEIGHT / 2 - 70, "v1.0", 0, 0, 0, 255);
+	stringRGBA(renderer, SCREEN_WIDTH / 2 - 70, SCREEN_HEIGHT / 2 - 60, "Copyright 2007", 0, 0, 0, 255);	char s3[] = "v1.0";
 
-	char argument4[] = "Andrew Russell";
-	DrawText(argument4, titleX, titleY + 110);
-	char argument5[] = "Miroslav Minev";
-	DrawText(argument5, titleX, titleY + 140);
+	stringRGBA(renderer, SCREEN_WIDTH / 2 - 70, SCREEN_HEIGHT / 2 - 40, "Andrew Russell", 0, 0, 0, 255);
+	stringRGBA(renderer, SCREEN_WIDTH / 2 - 70, SCREEN_HEIGHT / 2 - 30, "Miroslav Minev", 0, 0, 0, 255);
 
 	int optionsX = titleX - 30;
 	int optionsY = SCREEN_HEIGHT / 2 - 50;
 
-	char argument6[] = "1 = play Level 1: rookie";
-	DrawText(argument6, optionsX, optionsY);
-	char argument7[] = "2 = play Level 2: experienced";
-	DrawText(argument7, optionsX, optionsY + 30);
-	char argument8[] = "3 = play Level 3: vetran";
-	DrawText(argument8, optionsX, optionsY + (2 * 30));
-	char argument9[] = "l = load saved game";
-	DrawText(argument9, optionsX, optionsY + (3 * 30));
-	char argument10[] = "q = quit";
-	DrawText(argument10, optionsX, optionsY + (4 * 30));
+	stringRGBA(renderer, SCREEN_WIDTH / 2 - 120, SCREEN_HEIGHT / 2 - 10, "1 = play Level 1: rookie", 40, 150, 40, 255);
+	stringRGBA(renderer, SCREEN_WIDTH / 2 - 120, SCREEN_HEIGHT / 2 + 0, "2 = play Level 2: experienced", 40, 150, 40, 255);
+	stringRGBA(renderer, SCREEN_WIDTH / 2 - 120, SCREEN_HEIGHT / 2 + 10, "3 = play Level 3: vetran", 40, 150, 40, 255);
+	stringRGBA(renderer, SCREEN_WIDTH / 2 - 120, SCREEN_HEIGHT / 2 + 20, "l = load saved game", 40, 150, 40, 255);
+	stringRGBA(renderer, SCREEN_WIDTH / 2 - 120, SCREEN_HEIGHT / 2 + 30, "q = quit", 40, 150, 40, 255);
 
-	char argument11[] = "In-Game keys:";
-	DrawText(argument11, optionsX, optionsY + (6 * 30));
-	char argument12[] = "Left and Right arrow keys to move";
-	DrawText(argument12, optionsX, optionsY + (7 * 30));
-	char argument13[] = "Space to shoot";
-	DrawText(argument13, optionsX, optionsY + (8 * 30));
-	char argument14[] = "Escape to go to Pause menu";
-	DrawText(argument14, optionsX, optionsY + (9 * 30));
+	stringRGBA(renderer, SCREEN_WIDTH / 2 - 120, SCREEN_HEIGHT / 2 + 50, "In-Game keys:", 255, 0, 0, 255);
+	stringRGBA(renderer, SCREEN_WIDTH / 2 - 120, SCREEN_HEIGHT / 2 + 70, "Left and Right arrow keys to move", 255, 0, 0, 255);
+	stringRGBA(renderer, SCREEN_WIDTH / 2 - 120, SCREEN_HEIGHT / 2 + 80, "Space to shoot", 255, 0, 0, 255);
+	stringRGBA(renderer, SCREEN_WIDTH / 2 - 120, SCREEN_HEIGHT / 2 + 90, "Escape to go to Pause menu", 255, 0, 0, 255);
 
 	RevealScreen();
 }
@@ -360,10 +330,12 @@ void Graphics::DrawLines(Battlefield& gameBattlefield)
 	while (linesVecIter != vecLines.end())
 	{
 		// Draw line (stored in workingBattlefieldLinesVector) pointed to by linesVecIter
-		DrawSingleLine(linesVecIter->start_x,		linesVecIter->start_y,
-						linesVecIter->end_x,		linesVecIter->end_y,
-						linesVecIter->colour_red,	linesVecIter->colour_green,
-						linesVecIter->colour_blue,	linesVecIter->colour_transparency);
+		DrawSingleLine(
+			linesVecIter->start_x, linesVecIter->start_y,
+			linesVecIter->end_x, linesVecIter->end_y,
+			linesVecIter->colour_red, linesVecIter->colour_green,
+			linesVecIter->colour_blue, linesVecIter->colour_transparency
+		);
 		linesVecIter++;
 	}
 }
@@ -400,12 +372,10 @@ void Graphics::DrawPlayerScore(PlayerShip& gamePlayerShip)
 		out << 0;
 	}
 
-	char scoreText[] = "score: ";
-	DrawText(scoreText, 30, 30);
-
-	char scoreValue[10];
-	strcpy_s(scoreValue, out.str().c_str());
-	DrawText(scoreValue, 30, 60);
+	char score[10];
+	strcpy_s(score, out.str().c_str());
+	stringRGBA(renderer, 30, 30, "score: ", 255, 255, 255, 255);
+	stringRGBA(renderer, 90, 30, score, 255, 255, 255, 255);
 }
 
 /*!A function to iterate through the vector of the alien ships and drsw each alien to the screen
@@ -420,10 +390,12 @@ void Graphics::DrawAlienShips(vector<AlienShip>& AlienShipVector)
 	{
 		if (alienShipVecIter->get_state())
 		{
-			DrawFilledEllipse ( alienShipVecIter -> get_coordinate_x(),	alienShipVecIter -> get_coordinate_y(),
-								alienShipVecIter -> get_sizeRadius_x(),	alienShipVecIter -> get_sizeRadius_y(),
-								alienShipVecIter -> get_colourRed(),	alienShipVecIter -> get_colourGreen(), 
-								alienShipVecIter -> get_colourBlue(),	alienShipVecIter -> get_colourTransparency() );
+			DrawFilledEllipse (
+				alienShipVecIter->get_coordinate_x(), alienShipVecIter->get_coordinate_y(),
+				alienShipVecIter->get_sizeRadius_x(), alienShipVecIter->get_sizeRadius_y(),
+				alienShipVecIter->get_colourRed(), alienShipVecIter->get_colourGreen(),
+				alienShipVecIter->get_colourBlue(), alienShipVecIter->get_colourTransparency()
+			);
 		}
 		alienShipVecIter++;
 	}
@@ -501,6 +473,12 @@ void Graphics::DrawFilledEllipse(
 	filledEllipseRGBA(renderer, centre_x, centre_y, radius_x, radius_y, red, green, blue, transparency);
 }
 
+/*!Draw text using SDL TTF
+* 
+* Example usage:
+*    char text[] = "write message here";
+*    DrawText(text, 0, 0);
+*/
 void Graphics::DrawText(char* text, int x, int y)
 {
 	if (TTF_Init() == -1)
@@ -558,7 +536,7 @@ void Graphics::DrawText(char* text, int x, int y)
 void Graphics::RevealScreen()
 {
 	SDL_RenderPresent(renderer);
-	SDL_Delay(100);
+	SDL_Delay(20);
 }
 
 void Graphics::BlockScreen()
@@ -589,15 +567,17 @@ void Graphics::DrawPlayerMissiles(vector<PlayerMissile>& PlayerMissilesVector)
 	vector<PlayerMissile>::iterator PlayerMissilesVecIter;
 	PlayerMissilesVecIter = PlayerMissilesVector.begin();
 
-	while ( PlayerMissilesVecIter != PlayerMissilesVector.end() )
+	while (PlayerMissilesVecIter != PlayerMissilesVector.end())
 	{
 		if (PlayerMissilesVecIter->get_state())
 		{
-			DrawFilledEllipse (	PlayerMissilesVecIter->get_coordinate_x(), PlayerMissilesVecIter->get_coordinate_y(),
-								PlayerMissilesVecIter->get_sizeRadius_x(), PlayerMissilesVecIter->get_sizeRadius_y(),
-								PlayerMissilesVecIter->get_colourRed(),	   PlayerMissilesVecIter->get_colourGreen(),
-								PlayerMissilesVecIter->get_colourBlue(),   PlayerMissilesVecIter->get_colourTransparency());
-							// since the missiles are circles, exactly like the ships
+			DrawFilledEllipse(
+				PlayerMissilesVecIter->get_coordinate_x(), PlayerMissilesVecIter->get_coordinate_y(),
+				PlayerMissilesVecIter->get_sizeRadius_x(), PlayerMissilesVecIter->get_sizeRadius_y(),
+				PlayerMissilesVecIter->get_colourRed(), PlayerMissilesVecIter->get_colourGreen(),
+				PlayerMissilesVecIter->get_colourBlue(), PlayerMissilesVecIter->get_colourTransparency()
+			);
+			// since the missiles are circles, exactly like the ships
 		}
 		PlayerMissilesVecIter++;
 	}
@@ -611,14 +591,13 @@ void Graphics::DrawAlienMissiles(vector<AlienMissile>& AlienMissilesVector)
 	vector<AlienMissile>::iterator AlienMissilesVecIter;
 	AlienMissilesVecIter = AlienMissilesVector.begin();
 
-	while ( AlienMissilesVecIter != AlienMissilesVector.end() )
+	while (AlienMissilesVecIter != AlienMissilesVector.end())
 	{
-		{
-			DrawFilledEllipse (	AlienMissilesVecIter->get_coordinate_x(), AlienMissilesVecIter->get_coordinate_y(),
-								AlienMissilesVecIter->get_sizeRadius_x(), AlienMissilesVecIter->get_sizeRadius_y(),
-								255,0,
-								0, 255);
-		}
+		DrawFilledEllipse(
+			AlienMissilesVecIter->get_coordinate_x(), AlienMissilesVecIter->get_coordinate_y(),
+			AlienMissilesVecIter->get_sizeRadius_x(), AlienMissilesVecIter->get_sizeRadius_y(),
+			255, 0, 0, 255
+		);
 		AlienMissilesVecIter++;
 	}
 }
@@ -716,6 +695,5 @@ void Graphics::DrawRandomStar()
 {
 	int x = rand()%SCREEN_WIDTH;
 	int y = rand()%SCREEN_HEIGHT;
-	SDL_SetRenderDrawColor(renderer, 0xFF, 0xFF, 0xFF, 0xFF);
-	SDL_RenderDrawPoint(renderer, x, y);
+	pixelRGBA(renderer, x, y, 255, 255, 255, 180);
 }
