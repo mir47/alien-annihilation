@@ -1,1 +1,0 @@
-C:\Users\minev\Downloads\SDL\SDL2_gfx-1.0.4\SDL2_gfx-1.0.4\Win32\Debug\SDL2_gfx.dll
