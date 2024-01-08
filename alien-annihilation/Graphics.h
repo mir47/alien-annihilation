@@ -54,9 +54,9 @@ class Graphics
 public:
 
 	//! Default constructor
-	Graphics ();
+	Graphics();
 	//! Constructor with parameters
-	Graphics (int width, int height);
+	Graphics(int width, int height);
 	//! Destructor
 	~Graphics();
 
@@ -65,14 +65,22 @@ public:
 	//! Returns a Keyboard enum depending on which key on the keyboard is pressed
 	Keyboard CheckKeyboard();
 	//! Calls individual functions to draw all the objects in the game
-	void DrawScreen(Battlefield& gameBattlefield, PlayerShip& gamePlayerShip, vector<AlienShip>& AlienShipVector, 
-					vector<PlayerMissile>& PlayerMissilesVector, vector<AlienMissile>& AlienMissilesVector);
+	void DrawScreen(
+		Battlefield& gameBattlefield,
+		PlayerShip& gamePlayerShip,
+		vector<AlienShip>& AlienShipVector,
+		vector<PlayerMissile>& PlayerMissilesVector,
+		vector<AlienMissile>& AlienMissilesVector
+	);
 	//! Draws the user interface of the start menu
 	void DrawStartMenu();
 	//! Draws the user interface of the menu shown when the game is paused
 	void DrawPauseMenu();
 	//! Draws a certain graphic depending on which of the 3 win conditions has occured
-	void DrawGameOver(Battlefield& gameBattlefield, WinCondition gameEnd);
+	void DrawGameOver(
+		Battlefield& gameBattlefield,
+		WinCondition gameEnd
+	);
 	//! Draws a specific graphic when the game is over (condition: all aliens are destroyed, player wins)
 	void DrawEnd_AllAliensDestroyed();
 	//! Draws a specific graphic when the game is over (condition: one of the aliens has reached the outer circle, player loses)
@@ -105,21 +113,21 @@ private:
 	//! Reveals the newly drawn screen
 	void RevealScreen();
 	//! This function calls functions to draw the Battlefield lines and circles
-	void DrawBattlefield (Battlefield& gameBattlefield);
+	void DrawBattlefield(Battlefield& gameBattlefield);
 	//! Iterates through the vector of circles and calls a function to draw each one to the screen
-	void DrawCircles (Battlefield& gameBattlefield);
+	void DrawCircles(Battlefield& gameBattlefield);
 	//! Iterates through the vector of lines and calls a function to draw each one to the screen
-	void DrawLines (Battlefield& gameBattlefield);
+	void DrawLines(Battlefield& gameBattlefield);
 	//! Calls a function to draw the PlayerShip
-	void DrawPlayerShip (PlayerShip& gamePlayerShip);
+	void DrawPlayerShip(PlayerShip& gamePlayerShip);
 	//! Iterates through the vector of AlienShips and calls a function to draw each one to the screen
-	void DrawAlienShips (vector<AlienShip>& AlienShipVector);
+	void DrawAlienShips(vector<AlienShip>& AlienShipVector);
 	//! Iterates through the vector of PlayerMissiles and calls a function to draw each one to the screen
-	void DrawPlayerMissiles (vector<PlayerMissile>& PlayerMissilesVector);
+	void DrawPlayerMissiles(vector<PlayerMissile>& PlayerMissilesVector);
 	//! Iterates through the vector of AlienMissiles and calls a function to draw each one to the screen
-	void DrawAlienMissiles (vector<AlienMissile>& AlienMissilesVector);
+	void DrawAlienMissiles(vector<AlienMissile>& AlienMissilesVector);
 	//! Converts the player score from an integer to a string and draws it on the screen
-	void DrawPlayerScore (PlayerShip& gamePlayerShip);
+	void DrawPlayerScore(PlayerShip& gamePlayerShip);
 
 	//! Function to draw a star at a random x and y position on the screen (within the screen size limits)
 	void DrawRandomStar();

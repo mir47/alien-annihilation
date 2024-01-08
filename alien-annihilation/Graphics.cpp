@@ -39,7 +39,7 @@ Graphics::Graphics()
 \param windowWidth an integer which sets the width of the game window
 \param windowHeight an integer which sets the height of the game window
 */
-Graphics::Graphics (int windowWidth, int windowHeight)
+Graphics::Graphics(int windowWidth, int windowHeight)
 {
 	printf("Graphics::constructor with params called\n");
 
@@ -177,9 +177,12 @@ Keyboard Graphics::CheckKeyboard()
 \param PlayerMissilesVector a vector of type PlayerMissile
 \param AlienMissilesVector a vector of type AlienMissile
 */
-void Graphics::DrawScreen(Battlefield& gameBattlefield, PlayerShip& gamePlayerShip, 
-						  vector<AlienShip>& AlienShipVector, vector<PlayerMissile>& PlayerMissilesVector,
-						  vector<AlienMissile>& AlienMissilesVector) 
+void Graphics::DrawScreen(
+	Battlefield& gameBattlefield,
+	PlayerShip& gamePlayerShip, 
+	vector<AlienShip>& AlienShipVector,
+	vector<PlayerMissile>& PlayerMissilesVector,
+	vector<AlienMissile>& AlienMissilesVector)
 {
 	printf("Graphics::DrawScreen\n");
 	ClearScreen();
@@ -300,8 +303,6 @@ void Graphics::DrawPauseMenu()
 */
 void Graphics::ClearScreen()
 {
-//	SDL_FillRect(screen, NULL, SDL_MapRGB(screen->format,0,0,0));
-
 	// Set render color to black (background will be rendered in this color)
 	SDL_SetRenderDrawColor(renderer, 0, 0, 0, 255);
 
@@ -312,7 +313,7 @@ void Graphics::ClearScreen()
 /*!Function to draw the entrie Battlefield
 \param gameBattlefield a variable of type Battlefield
 */
-void Graphics::DrawBattlefield (Battlefield& gameBattlefield)
+void Graphics::DrawBattlefield(Battlefield& gameBattlefield)
 {
 	printf("Graphics::DrawBattlefield\n");
 
@@ -323,7 +324,7 @@ void Graphics::DrawBattlefield (Battlefield& gameBattlefield)
 /*!Function to draw the circles of the Battlefield
 \param gameBattlefield a variable of type Battlefield
 */
-void Graphics::DrawCircles (Battlefield& gameBattlefield)
+void Graphics::DrawCircles(Battlefield& gameBattlefield)
 {
 	vector<Circle> vecCircles = gameBattlefield.get_vectorBattlefieldCircles();
 	vector<Circle>::iterator circlesVecIter;
@@ -350,7 +351,7 @@ void Graphics::DrawCircles (Battlefield& gameBattlefield)
 /*!Function to draw the lines of the Battlefield
 \param gameBattlefield a variable of type Battlefield
 */
-void Graphics::DrawLines (Battlefield& gameBattlefield)
+void Graphics::DrawLines(Battlefield& gameBattlefield)
 {
 	vector<Line> vecLines = gameBattlefield.get_vectorBattlefieldLines();
 	vector<Line>::iterator linesVecIter;
@@ -370,18 +371,24 @@ void Graphics::DrawLines (Battlefield& gameBattlefield)
 /*!Function to draw the Player ship
 \param gamePlayerShip a variable of type PlayerShip
 */
-void Graphics::DrawPlayerShip (PlayerShip& gamePlayerShip)
+void Graphics::DrawPlayerShip(PlayerShip& gamePlayerShip)
 {
-	DrawFilledEllipse ( gamePlayerShip.get_coordinate_x(),	gamePlayerShip.get_coordinate_y(),
-					 gamePlayerShip.get_sizeRadius_x(),		gamePlayerShip.get_sizeRadius_y(),
-					 gamePlayerShip.get_colourRed(),		gamePlayerShip.get_colourGreen(), 
-					 gamePlayerShip.get_colourBlue(),		gamePlayerShip.get_colourTransparency() );
+	DrawFilledEllipse(
+		gamePlayerShip.get_coordinate_x(),
+		gamePlayerShip.get_coordinate_y(),
+		gamePlayerShip.get_sizeRadius_x(),
+		gamePlayerShip.get_sizeRadius_y(),
+		gamePlayerShip.get_colourRed(),
+		gamePlayerShip.get_colourGreen(),
+		gamePlayerShip.get_colourBlue(),
+		gamePlayerShip.get_colourTransparency()
+	);
 }
 
 /*!Function to draw the Player ships score
 \param gamePlayerShip a variable of type PlayerShip
 */
-void Graphics::DrawPlayerScore (PlayerShip& gamePlayerShip)
+void Graphics::DrawPlayerScore(PlayerShip& gamePlayerShip)
 {
 	stringstream out;
 	if (gamePlayerShip.get_score() >= 0)
@@ -393,18 +400,18 @@ void Graphics::DrawPlayerScore (PlayerShip& gamePlayerShip)
 		out << 0;
 	}
 
-	char score[10];
-	strcpy_s(score, out.str().c_str());
+	char scoreText[] = "score: ";
+	DrawText(scoreText, 30, 30);
 
-	char argument1[] = "score: ";
-//	stringRGBA(screen, 30, 30, argument1, 255, 255, 255, 255);
-//	stringRGBA(screen, 90, 30, score, 255, 255, 255, 255);
+	char scoreValue[10];
+	strcpy_s(scoreValue, out.str().c_str());
+	DrawText(scoreValue, 30, 60);
 }
 
 /*!A function to iterate through the vector of the alien ships and drsw each alien to the screen
 \param AlienShipVector a vector containing instances of type AlienShip
 */
-void Graphics::DrawAlienShips (vector<AlienShip>& AlienShipVector)
+void Graphics::DrawAlienShips(vector<AlienShip>& AlienShipVector)
 {
 	vector<AlienShip>::iterator alienShipVecIter;
 	alienShipVecIter = AlienShipVector.begin();
@@ -432,11 +439,18 @@ void Graphics::DrawAlienShips (vector<AlienShip>& AlienShipVector)
 \param blue an integer that specifies the blue colour component of the circle
 \param transparency an integer that specifies the transparency colour component of the circle
 */
-void Graphics::DrawSingleCircle(int centre_x, int centre_y, int radius_x, int radius_y,
-						  int red, int green, int blue, int transparency)						   
+void Graphics::DrawSingleCircle(
+	int centre_x,
+	int centre_y,
+	int radius_x,
+	int radius_y,
+	int red,
+	int green,
+	int blue,
+	int transparency
+)
 {
-//	ellipseRGBA(screen, centre_x, centre_y, radius_x, radius_y, red, green, blue, transparency);
-	SDL_RenderDrawPoint(renderer, centre_x, centre_y);
+	ellipseRGBA(renderer, centre_x, centre_y, radius_x, radius_y, red, green, blue, transparency);
 }
 
 /*!Function to draw a single circle to the screen
@@ -449,10 +463,18 @@ void Graphics::DrawSingleCircle(int centre_x, int centre_y, int radius_x, int ra
 \param blue an integer that specifies the blue colour component of the line
 \param transparency an integer that specifies the transparency colour component of the line
 */
-void Graphics::DrawSingleLine(int x1, int y1, int x2, int y2,
-						int red, int green, int blue, int transparency)					 
+void Graphics::DrawSingleLine(
+	int x1,
+	int y1,
+	int x2,
+	int y2,
+	int red,
+	int green,
+	int blue,
+	int transparency
+)					 
 {
-//	lineRGBA(screen, x1, y1, x2, y2, red, green, blue, transparency);
+	lineRGBA(renderer, x1, y1, x2, y2, red, green, blue, transparency);
 }
 
 /*!Function to draw a single filled ellipse to the screen
@@ -465,10 +487,17 @@ void Graphics::DrawSingleLine(int x1, int y1, int x2, int y2,
 \param blue an integer that specifies the blue colour component of the circle
 \param transparency an integer that specifies the transparency colour component of the circle
 */
-void Graphics::DrawFilledEllipse(int centre_x, int centre_y, int radius_x, int radius_y,
-						int red, int green, int blue, int transparency)
+void Graphics::DrawFilledEllipse(
+	int centre_x,
+	int centre_y,
+	int radius_x,
+	int radius_y,
+	int red,
+	int green,
+	int blue,
+	int transparency
+)
 {
-//	filledEllipseRGBA(screen, centre_x, centre_y, radius_x, radius_y, red, green, blue, transparency);
 	filledEllipseRGBA(renderer, centre_x, centre_y, radius_x, radius_y, red, green, blue, transparency);
 }
 
@@ -523,14 +552,6 @@ void Graphics::DrawText(char* text, int x, int y)
 	}
 }
 
-/*!Function to reveal the screen
-
-*/
-//void Graphics::RevealScreen()
-//{
-//	SDL_Flip(screen);
-//}
-
 /*!Draw objects on screen
 
 */
@@ -563,7 +584,7 @@ void Graphics::BlockScreen()
 /*!A function to iterate through the vector of the player missiles and drsw each missile to the screen
 \param PlayerMissilesVector a vector containing instances of type PlayerMissile
 */
-void Graphics::DrawPlayerMissiles (vector<PlayerMissile>& PlayerMissilesVector)
+void Graphics::DrawPlayerMissiles(vector<PlayerMissile>& PlayerMissilesVector)
 {
 	vector<PlayerMissile>::iterator PlayerMissilesVecIter;
 	PlayerMissilesVecIter = PlayerMissilesVector.begin();
@@ -585,7 +606,7 @@ void Graphics::DrawPlayerMissiles (vector<PlayerMissile>& PlayerMissilesVector)
 /*!A function to iterate through the vector of the alien missiles and drsw each missile to the screen
 \param AlienMissilesVector a vector containing instances of type AlienMissile
 */
-void Graphics::DrawAlienMissiles (vector<AlienMissile>& AlienMissilesVector)
+void Graphics::DrawAlienMissiles(vector<AlienMissile>& AlienMissilesVector)
 {
 	vector<AlienMissile>::iterator AlienMissilesVecIter;
 	AlienMissilesVecIter = AlienMissilesVector.begin();

@@ -31,7 +31,6 @@ Game::Game()
 	_playerSize_y = 7;
 	_alienSize_x = 9;
 	_alienSize_y = 2;
-
 }
 
 /*!	Constructor which accepts width and height of the game window to create an object of the game
@@ -66,8 +65,6 @@ bool Game::RunGame()
 
 	_loadSuccessful = true;
 	gameStart = StartMenu(playerInput);
-
-//	_gameGraphics.BlockScreen();
 
 	switch (gameStart)
 	{
@@ -232,8 +229,6 @@ Action Game::PauseMenu(Input& playerInput)
 
 }
 
-
-
 /*! This function calls the individual Update functions to check states and update all moving objects on the screen
 */
 void Game::UpdateAll()
@@ -243,9 +238,6 @@ void Game::UpdateAll()
 	UpdateAlienMissiles();
 }
 
-
-
-
 /*!	Function that iterates through the vectors of all the interacting objects in the game in a nested fashion and checks if any collisions have occured. If a collision is detected the health of the involved AlienShip or PlayerShip is reduced by a constant factor and the involved Missile is destroyed (i.e. state set to 0). If an AlienShip or PlayerShip's health is 0 then it is destroyed (i.e. state set to 0). This function does not update or erase elements from the vectors.
 	*/
 void Game::CollisionDetect()
@@ -254,8 +246,6 @@ void Game::CollisionDetect()
 	CollisionDetect_PlayerShip_AlienMissiles();
 	CollisionDetect_PlayerMissiles_AlienMissiles();
 }
-
-
 
 /*!	Function that iterates through the vectors of PlayerMissiles and AlienShips and checks if any collisions have occured. If a collision is detected the health of the involved AlienShip is reduced by a constant factor and the involved Missile is destroyed (i.e. state set to 0). If an AlienShip's health is 0 then it is destroyed (i.e. state set to 0). This function does not update or erase elements from the vectors.
 	*/
@@ -310,8 +300,6 @@ void Game::CollisionDetect_PlayerMissiles_AlienShip()
 
 }
 
-
-
 /*!	Function that iterates through the vectors of AlienMissiles and checks if any collisions have occured with the PlayerShip. If a collision is detected the health of the PlayerShip is reduced by a constant factor and the involved Missile is destroyed (i.e. state set to 0). If an PlayerShip's health is 0 then it is destroyed (i.e. state set to 0). This function does not update or erase elements from the vectors.
 	*/
 void Game::CollisionDetect_PlayerShip_AlienMissiles()
@@ -324,12 +312,9 @@ void Game::CollisionDetect_PlayerShip_AlienMissiles()
 		if ( (iter_vectorAlienMissiles->get_coordinate_x() > (_gamePlayerShip.get_coordinate_x() - _gamePlayerShip.get_sizeRadius_x()))
 				&& (iter_vectorAlienMissiles->get_coordinate_x() < (_gamePlayerShip.get_coordinate_x() + _gamePlayerShip.get_sizeRadius_x())) )
 			{
-			
 				if ( (iter_vectorAlienMissiles->get_coordinate_y() > (_gamePlayerShip.get_coordinate_y() - _gamePlayerShip.get_sizeRadius_y()))
 					&& (iter_vectorAlienMissiles->get_coordinate_y() < (_gamePlayerShip.get_coordinate_y() + _gamePlayerShip.get_sizeRadius_y())) )
 				{
-
-
 					if (_gamePlayerShip.get_health() > 0)
 					{
 						_gamePlayerShip.ReduceHealth(33);
@@ -342,13 +327,11 @@ void Game::CollisionDetect_PlayerShip_AlienMissiles()
 					}
 
 					iter_vectorAlienMissiles -> DestroyMissile();
-
 				} 
 			} 
 
 		iter_vectorAlienMissiles++;
 	} 
-
 }
 
 /*!	Function that iterates through the vectors of PlayerMissiles and AlienMissiles and checks if any collisions have occured. If a collision is detected the involved Missiles are destroyed (i.e. state set to 0). This function does not update or erase elements from the vectors.
@@ -365,17 +348,14 @@ void Game::CollisionDetect_PlayerMissiles_AlienMissiles()
 
 		while (iter_vectorPlayerMissiles != _vectorPlayerMissiles.end())
 		{
-
 			// check if PlayerMissile centre x coordinate lies within x coordinate of alienMissile
 			if ( (iter_vectorPlayerMissiles->get_coordinate_x() > (iter_vectorAlienMissiles->get_coordinate_x() - iter_vectorAlienMissiles->get_sizeRadius_x()))
 				&& (iter_vectorPlayerMissiles->get_coordinate_x() < (iter_vectorAlienMissiles->get_coordinate_x() + iter_vectorAlienMissiles->get_sizeRadius_x())) )
 			{
-			
 				// check if PlayerMissile centre y coordinate lies within y coordinate of alienMissile
 				if ( (iter_vectorPlayerMissiles->get_coordinate_y() > (iter_vectorAlienMissiles->get_coordinate_y() - iter_vectorAlienMissiles->get_sizeRadius_y()))
 					&& (iter_vectorPlayerMissiles->get_coordinate_y() < (iter_vectorAlienMissiles->get_coordinate_y() + iter_vectorAlienMissiles->get_sizeRadius_y())) )
 				{
-
 					iter_vectorAlienMissiles -> DestroyMissile();
 					iter_vectorPlayerMissiles -> DestroyMissile();
 
@@ -387,7 +367,6 @@ void Game::CollisionDetect_PlayerMissiles_AlienMissiles()
 
 		iter_vectorAlienMissiles++;
 	} // END - while
-
 }
 
 /*! Function that checks the three game over conditions:
@@ -550,13 +529,7 @@ void Game::AlienShoot()
 	AlienMissile tempAlienMissile(ptr_vectorAlienShips->get_radiusFromCentre(), ptr_vectorAlienShips->get_angleFromCentre(), 
 						ptr_vectorAlienShips->get_coordinate_x(), ptr_vectorAlienShips->get_coordinate_y());
 	_vectorAlienMissiles.push_back(tempAlienMissile);
-
 }
-
-
-
-
-
 
 /*! Iterates through the vector of AlienShips and calls their functions to move them if their state is 'alive' (1), else if its state is 'dead' erase it from the vector
 	*/
@@ -575,10 +548,8 @@ void Game::UpdateAliens()
 		else
 		{
 			iter_vectorAlienShips = _vectorAlienShips.erase(iter_vectorAlienShips);
-			
 		}
 	}
-
 }
 
 /*!	Function to iterate through vector of PlayerMissiles and call each PlayerMissile "Move" function if its state is 1 (alive) else erase it from the vector
