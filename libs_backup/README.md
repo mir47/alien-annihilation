@@ -7,7 +7,7 @@ Repo structure:
   - alien-annihilation/     <- project folder
   - Debug/                  <- build folder
   - docs/                   <- documentation
-  - libs_backup/            <- Dependencies to build and run 
+  - libs_backup/            <- dependencies (for build and run)
   - alien-annihilation.sln  <- Visual Studio solution file
 ```
 
