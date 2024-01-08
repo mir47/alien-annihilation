@@ -4,7 +4,8 @@
 
 - Install Microsoft Visual Studio Community 2022.
 - Open solution file and set build configuration to `x86` (32 bit), and configure depencies on `x86` libs (next step). I could only get `SDL2_gfx` to build for `x86` and not `x64`.
-- `vclib.zip` contains just the necessary library files copied from the `source` folder. This is needed to build the `alien-annihilation` project. Extract and copy this to anywhere e.g. `C:\vclib`, and configure the project settings in Visual Studio (see [Setting up SDL 2 on Visual Studio](https://lazyfoo.net/tutorials/SDL/01_hello_SDL/windows/msvc2019/index.php) for more info). To run the project, copy the `dll` files to the project folder (if not already there).
+- `vclib.zip` contains just the necessary library files copied from the `source` folder. This is needed to build the `alien-annihilation` project. Extract and copy this to anywhere e.g. `C:\vclib`, and configure the project settings in Visual Studio (see [Setting up SDL 2 on Visual Studio](https://lazyfoo.net/tutorials/SDL/01_hello_SDL/windows/msvc2019/index.php) for more info).
+- To run the executable, copy the `.dll` files to the same folder as the `.exe` e.g. `alien-annihilation/Debug`, but these should already be there. If it doesn't work, try put them in the project folder `alien-annihilation/alien-annihilation` next to the source files. If still doesn't work, then ask Google or ChatGPT.
 
 ## Source
 
