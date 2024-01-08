@@ -281,19 +281,19 @@ void Graphics::DrawStartMenu()
 */
 void Graphics::DrawPauseMenu()
 {
-//    boxRGBA(screen, WINDOW_WIDTH/2-120, WINDOW_HEIGHT/2-60,  WINDOW_WIDTH/2+120, WINDOW_HEIGHT/2+60, 100, 100, 100, 200);
+    boxRGBA(renderer, SCREEN_WIDTH /2-120, SCREEN_HEIGHT/2-60, SCREEN_WIDTH /2+120, SCREEN_HEIGHT /2+60, 100, 100, 100, 200);
 
-	//char argument1[] = "Paused";
-	//stringRGBA(screen, WINDOW_WIDTH/2-25, WINDOW_HEIGHT/2-40, argument1, 255, 255, 255, 255);
+	char argument1[] = "Paused";
+	stringRGBA(renderer, SCREEN_WIDTH /2-25, SCREEN_HEIGHT /2-40, argument1, 255, 255, 255, 255);
  
-	//char argument2[] = "ESC = resume";
-	//stringRGBA(screen, WINDOW_WIDTH/2-80, WINDOW_HEIGHT/2-20, argument2, 255, 255, 255, 255);
-	//char argument3[] = "r = return to main menu";
-	//stringRGBA(screen, WINDOW_WIDTH/2-80, WINDOW_HEIGHT/2-10, argument3, 255, 255, 255, 255);
-	//char argument4[] = "s = save";
-	//stringRGBA(screen, WINDOW_WIDTH/2-80, WINDOW_HEIGHT/2+0, argument4, 255, 255, 255, 255);
-	//char argument5[] = "q = quit";
-	//stringRGBA(screen, WINDOW_WIDTH/2-80, WINDOW_HEIGHT/2+10, argument5, 255, 255, 255, 255);
+	char argument2[] = "ESC = resume";
+	stringRGBA(renderer, SCREEN_WIDTH /2-80, SCREEN_HEIGHT /2-20, argument2, 255, 255, 255, 255);
+	char argument3[] = "r = return to main menu";
+	stringRGBA(renderer, SCREEN_WIDTH /2-80, SCREEN_HEIGHT /2-10, argument3, 255, 255, 255, 255);
+	char argument4[] = "s = save";
+	stringRGBA(renderer, SCREEN_WIDTH /2-80, SCREEN_HEIGHT /2+0, argument4, 255, 255, 255, 255);
+	char argument5[] = "q = quit";
+	stringRGBA(renderer, SCREEN_WIDTH /2-80, SCREEN_HEIGHT /2+10, argument5, 255, 255, 255, 255);
 
 	RevealScreen();
 }
@@ -650,49 +650,49 @@ void Graphics::DrawGameOver(Battlefield& gameBattlefield,  WinCondition gameEnd)
 /*!A function to draw the game over condition which correspond to the case where all the aliens are destroyed*/
 void Graphics::DrawEnd_AllAliensDestroyed()
 {
-//	boxRGBA(screen, WINDOW_WIDTH/2-190, WINDOW_HEIGHT/2-60,  WINDOW_WIDTH/2+190, WINDOW_HEIGHT/2+60, 0, 255, 0, 150);
+	boxRGBA(renderer, SCREEN_WIDTH / 2 - 190, SCREEN_HEIGHT / 2 - 60, SCREEN_WIDTH / 2 + 190, SCREEN_HEIGHT / 2 + 60, 0, 255, 0, 150);
 
-//	char argument1[] = "You Win! - all alien ships heve been destroyed";
-//	stringRGBA(screen, WINDOW_WIDTH/2-180, WINDOW_HEIGHT/2-20, argument1, 255, 255, 255, 255);
+	char argument1[] = "You Win! - all alien ships heve been destroyed";
+	stringRGBA(renderer, SCREEN_WIDTH / 2 - 180, SCREEN_HEIGHT / 2 - 20, argument1, 255, 255, 255, 255);
 
-//	char argument2[] = "Press enter to continue";
-//	stringRGBA(screen, WINDOW_WIDTH/2-90, WINDOW_HEIGHT/2+20, argument2, 255, 255, 255, 255);
+	char argument2[] = "Press enter to continue";
+	stringRGBA(renderer, SCREEN_WIDTH / 2 - 90, SCREEN_HEIGHT / 2 + 20, argument2, 255, 255, 255, 255);
 }
 
 /*!A function to draw the game over condition which correspond to the case where the aliens have reached the player base*/
 void Graphics::DrawEnd_AliensOnOuterCircle()
 {
-//	boxRGBA(screen, WINDOW_WIDTH/2-190, WINDOW_HEIGHT/2-60,  WINDOW_WIDTH/2+190, WINDOW_HEIGHT/2+60, 255, 0, 0, 150);
+	boxRGBA(renderer, SCREEN_WIDTH / 2 - 190, SCREEN_HEIGHT / 2 - 60, SCREEN_WIDTH / 2 + 190, SCREEN_HEIGHT / 2 + 60, 255, 0, 0, 150);
 
-//	char argument1[] = "GAME OVER - the aliens have invaded your base";
-//	stringRGBA(screen, WINDOW_WIDTH/2-180, WINDOW_HEIGHT/2-20, argument1, 255, 255, 255, 255);
+	char argument1[] = "GAME OVER - the aliens have invaded your base";
+	stringRGBA(renderer, SCREEN_WIDTH / 2 - 180, SCREEN_HEIGHT / 2 - 20, argument1, 255, 255, 255, 255);
 
-//	char argument2[] = "Press enter to continue";
-//	stringRGBA(screen, WINDOW_WIDTH/2-90, WINDOW_HEIGHT/2+20, argument2, 255, 255, 255, 255);
+	char argument2[] = "Press enter to continue";
+	stringRGBA(renderer, SCREEN_WIDTH / 2 - 90, SCREEN_HEIGHT / 2 + 20, argument2, 255, 255, 255, 255);
 }
 
 /*!A function to draw the game over condition which correspond to the case where the player ship is destroyed*/
 void Graphics::DrawEnd_PlayerDestroyed()
 {
-//	boxRGBA(screen, WINDOW_WIDTH/2-190, WINDOW_HEIGHT/2-60,  WINDOW_WIDTH/2+190, WINDOW_HEIGHT/2+60, 255, 0, 0, 150);
+	boxRGBA(renderer, SCREEN_WIDTH / 2 - 190, SCREEN_HEIGHT / 2 - 60, SCREEN_WIDTH / 2 + 190, SCREEN_HEIGHT / 2 + 60, 255, 0, 0, 150);
 
-//	char argument1[] = "GAME OVER - you have been destroyed";
-//	stringRGBA(screen, WINDOW_WIDTH/2-140, WINDOW_HEIGHT/2-20, argument1, 255, 255, 255, 255);
+	char argument1[] = "GAME OVER - you have been destroyed";
+	stringRGBA(renderer, SCREEN_WIDTH / 2 - 140, SCREEN_HEIGHT / 2 - 20, argument1, 255, 255, 255, 255);
 
-//	char argument2[] = "Press enter to continue";
-//	stringRGBA(screen, WINDOW_WIDTH/2-90, WINDOW_HEIGHT/2+20, argument2, 255, 255, 255, 255);
+	char argument2[] = "Press enter to continue";
+	stringRGBA(renderer, SCREEN_WIDTH / 2 - 90, SCREEN_HEIGHT / 2 + 20, argument2, 255, 255, 255, 255);
 }
 
 /*!A function to draw the condition which correspond to the case where a game has not been succesfully loaded*/
 void Graphics::DrawLoadError()
 {
-//	boxRGBA(screen, WINDOW_WIDTH/2-190, WINDOW_HEIGHT/2-60,  WINDOW_WIDTH/2+190, WINDOW_HEIGHT/2+60, 255, 0, 0, 255);
+	boxRGBA(renderer, SCREEN_WIDTH / 2 - 190, SCREEN_HEIGHT / 2 - 60, SCREEN_WIDTH / 2 + 190, SCREEN_HEIGHT / 2 + 60, 255, 0, 0, 255);
 
-//	char argument1[] = "No saved games";
-//	stringRGBA(screen, WINDOW_WIDTH/2-70, WINDOW_HEIGHT/2-20, argument1, 255, 255, 255, 255);
+	char argument1[] = "No saved games";
+	stringRGBA(renderer, SCREEN_WIDTH / 2 - 70, SCREEN_HEIGHT / 2 - 20, argument1, 255, 255, 255, 255);
 
-//	char argument2[] = "Press enter to continue";
-//	stringRGBA(screen, WINDOW_WIDTH/2-90, WINDOW_HEIGHT/2+20, argument2, 255, 255, 255, 255);
+	char argument2[] = "Press enter to continue";
+	stringRGBA(renderer, SCREEN_WIDTH / 2 - 90, SCREEN_HEIGHT / 2 + 20, argument2, 255, 255, 255, 255);
 
 	RevealScreen();
 }
@@ -700,13 +700,13 @@ void Graphics::DrawLoadError()
 /*!A function to draw the condition which correspond to the case where a game has been succesfully loaded*/
 void Graphics::DrawLoadCorrect()
 {
-//	boxRGBA(screen, WINDOW_WIDTH/2-190, WINDOW_HEIGHT/2-60,  WINDOW_WIDTH/2+190, WINDOW_HEIGHT/2+60, 0, 255, 0, 255);
+	boxRGBA(renderer, SCREEN_WIDTH / 2 - 190, SCREEN_HEIGHT / 2 - 60, SCREEN_WIDTH / 2 + 190, SCREEN_HEIGHT / 2 + 60, 0, 255, 0, 255);
 
-//	char argument1[] = "Saved game loaded";
-//	stringRGBA(screen, WINDOW_WIDTH/2-70, WINDOW_HEIGHT/2-20, argument1, 255, 255, 255, 255);
+	char argument1[] = "Saved game loaded";
+	stringRGBA(renderer, SCREEN_WIDTH / 2 - 70, SCREEN_HEIGHT / 2 - 20, argument1, 255, 255, 255, 255);
 
-//	char argument2[] = "Press enter to play";
-//	stringRGBA(screen, WINDOW_WIDTH/2-90, WINDOW_HEIGHT/2+20, argument2, 255, 255, 255, 255);
+	char argument2[] = "Press enter to play";
+	stringRGBA(renderer, SCREEN_WIDTH / 2 - 90, SCREEN_HEIGHT / 2 + 20, argument2, 255, 255, 255, 255);
 
 	RevealScreen();
 }

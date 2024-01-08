@@ -32,9 +32,6 @@ public:
 	//! Constructor with parameters
 	Game(int windowWidth, int windowHeight);
 
-	
-
-
 //	Game( pass level file to this constructor );
 
 	bool RunGame();
@@ -63,11 +60,9 @@ public:
 	bool CheckGameOver();
 	//! Outputs all objects to Graphics class to be drawn
 	void DisplayGame();
-
 	
 	//! Funtion to save a current game before quiting 
 	void SaveGame();
-
 
 private:
 		// functions
@@ -85,20 +80,17 @@ private:
 	//! Creates an AlienMissile
 	void AlienShoot();
 
-
 	//! Iterates through vector of AlienShips and updates coordinates and states
 	void UpdateAliens();
 	//! Iterates through vector of PlayerMissiles and updates coordinates and states
 	void UpdatePlayerMissiles();
 	//! Iterates through vector of AlienMissiles and updates coordinates and states
 	void UpdateAlienMissiles();
-	
 
 	// classes
 	Battlefield _gameBattlefield;//!< Object that stores lines and circles for Battlefield
 	Graphics _gameGraphics;//!< Object 
 	PlayerShip _gamePlayerShip;//!< Playership object 
-	
 
 	// vectors
 	vector<PlayerMissile> _vectorPlayerMissiles;//!< Vector that stores all the player missiles in play
@@ -118,9 +110,6 @@ private:
 	int _alienSize_y;//!< stores y radius of ellipse size of AlienShip
 
 	bool _loadSuccessful;//!< flag for successful saved game loading
-
 };
-
-
 
 #endif

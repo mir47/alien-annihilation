@@ -226,7 +226,6 @@ Action Game::PauseMenu(Input& playerInput)
 		paused = playerInput.PauseMenu(_gameGraphics);
 	}
 	return paused;
-
 }
 
 /*! This function calls the individual Update functions to check states and update all moving objects on the screen
@@ -251,7 +250,6 @@ void Game::CollisionDetect()
 	*/
 void Game::CollisionDetect_PlayerMissiles_AlienShip()
 {
-
 	vector<AlienShip>::iterator iter_vectorAlienShips;
 	iter_vectorAlienShips = _vectorAlienShips.begin();
 
@@ -262,34 +260,30 @@ void Game::CollisionDetect_PlayerMissiles_AlienShip()
 
 		while (iter_vectorPlayerMissiles != _vectorPlayerMissiles.end())
 		{
-
 			// check if missile centre x coordinate lies within x coordinate of alienship
-			if ( (iter_vectorPlayerMissiles->get_coordinate_x() > (iter_vectorAlienShips->get_coordinate_x() - iter_vectorAlienShips->get_sizeRadius_x()))
-				&& (iter_vectorPlayerMissiles->get_coordinate_x() < (iter_vectorAlienShips->get_coordinate_x() + iter_vectorAlienShips->get_sizeRadius_x())) )
+			if ((iter_vectorPlayerMissiles->get_coordinate_x() > (iter_vectorAlienShips->get_coordinate_x() - iter_vectorAlienShips->get_sizeRadius_x()))
+				&& (iter_vectorPlayerMissiles->get_coordinate_x() < (iter_vectorAlienShips->get_coordinate_x() + iter_vectorAlienShips->get_sizeRadius_x())))
 			{
-			
 				// check if missile centre y coordinate lies within y coordinate of alienship
-				if ( (iter_vectorPlayerMissiles->get_coordinate_y() > (iter_vectorAlienShips->get_coordinate_y() - iter_vectorAlienShips->get_sizeRadius_y()))
-					&& (iter_vectorPlayerMissiles->get_coordinate_y() < (iter_vectorAlienShips->get_coordinate_y() + iter_vectorAlienShips->get_sizeRadius_y())) )
+				if ((iter_vectorPlayerMissiles->get_coordinate_y() > (iter_vectorAlienShips->get_coordinate_y() - iter_vectorAlienShips->get_sizeRadius_y()))
+					&& (iter_vectorPlayerMissiles->get_coordinate_y() < (iter_vectorAlienShips->get_coordinate_y() + iter_vectorAlienShips->get_sizeRadius_y())))
 				{
-
-
-					if (iter_vectorAlienShips-> get_health() > 0)
+					if (iter_vectorAlienShips->get_health() > 0)
 					{
-						iter_vectorAlienShips-> ReduceHealth(33);
+						iter_vectorAlienShips->ReduceHealth(33);
 						_gamePlayerShip.AddScore(20);
 					}
 
-					if (iter_vectorAlienShips -> get_health() == 0)
+					if (iter_vectorAlienShips->get_health() == 0)
 					{
-						iter_vectorAlienShips -> DestroyShip();
+						iter_vectorAlienShips->DestroyShip();
 						_gamePlayerShip.AddScore(50);
-
 					}
 
-					iter_vectorPlayerMissiles -> DestroyMissile();
+					iter_vectorPlayerMissiles->DestroyMissile();
 
 				} // END - if
+
 			} // END - if
 
 			iter_vectorPlayerMissiles++;
@@ -297,7 +291,6 @@ void Game::CollisionDetect_PlayerMissiles_AlienShip()
 
 		iter_vectorAlienShips++;
 	} // END - while
-
 }
 
 /*!	Function that iterates through the vectors of AlienMissiles and checks if any collisions have occured with the PlayerShip. If a collision is detected the health of the PlayerShip is reduced by a constant factor and the involved Missile is destroyed (i.e. state set to 0). If an PlayerShip's health is 0 then it is destroyed (i.e. state set to 0). This function does not update or erase elements from the vectors.
@@ -309,29 +302,29 @@ void Game::CollisionDetect_PlayerShip_AlienMissiles()
 
 	while (iter_vectorAlienMissiles != _vectorAlienMissiles.end())
 	{
-		if ( (iter_vectorAlienMissiles->get_coordinate_x() > (_gamePlayerShip.get_coordinate_x() - _gamePlayerShip.get_sizeRadius_x()))
-				&& (iter_vectorAlienMissiles->get_coordinate_x() < (_gamePlayerShip.get_coordinate_x() + _gamePlayerShip.get_sizeRadius_x())) )
+		if ((iter_vectorAlienMissiles->get_coordinate_x() > (_gamePlayerShip.get_coordinate_x() - _gamePlayerShip.get_sizeRadius_x()))
+			&& (iter_vectorAlienMissiles->get_coordinate_x() < (_gamePlayerShip.get_coordinate_x() + _gamePlayerShip.get_sizeRadius_x())))
+		{
+			if ((iter_vectorAlienMissiles->get_coordinate_y() > (_gamePlayerShip.get_coordinate_y() - _gamePlayerShip.get_sizeRadius_y()))
+				&& (iter_vectorAlienMissiles->get_coordinate_y() < (_gamePlayerShip.get_coordinate_y() + _gamePlayerShip.get_sizeRadius_y())))
 			{
-				if ( (iter_vectorAlienMissiles->get_coordinate_y() > (_gamePlayerShip.get_coordinate_y() - _gamePlayerShip.get_sizeRadius_y()))
-					&& (iter_vectorAlienMissiles->get_coordinate_y() < (_gamePlayerShip.get_coordinate_y() + _gamePlayerShip.get_sizeRadius_y())) )
+				if (_gamePlayerShip.get_health() > 0)
 				{
-					if (_gamePlayerShip.get_health() > 0)
-					{
-						_gamePlayerShip.ReduceHealth(33);
-						_gamePlayerShip.AddScore(-100);
-					}
+					_gamePlayerShip.ReduceHealth(33);
+					_gamePlayerShip.AddScore(-100);
+				}
 
-					if (_gamePlayerShip.get_health() == 0)
-					{
-						_gamePlayerShip.DestroyShip();
-					}
+				if (_gamePlayerShip.get_health() == 0)
+				{
+					_gamePlayerShip.DestroyShip();
+				}
 
-					iter_vectorAlienMissiles -> DestroyMissile();
-				} 
-			} 
+				iter_vectorAlienMissiles->DestroyMissile();
+			}
+		}
 
 		iter_vectorAlienMissiles++;
-	} 
+	}
 }
 
 /*!	Function that iterates through the vectors of PlayerMissiles and AlienMissiles and checks if any collisions have occured. If a collision is detected the involved Missiles are destroyed (i.e. state set to 0). This function does not update or erase elements from the vectors.
@@ -349,17 +342,17 @@ void Game::CollisionDetect_PlayerMissiles_AlienMissiles()
 		while (iter_vectorPlayerMissiles != _vectorPlayerMissiles.end())
 		{
 			// check if PlayerMissile centre x coordinate lies within x coordinate of alienMissile
-			if ( (iter_vectorPlayerMissiles->get_coordinate_x() > (iter_vectorAlienMissiles->get_coordinate_x() - iter_vectorAlienMissiles->get_sizeRadius_x()))
-				&& (iter_vectorPlayerMissiles->get_coordinate_x() < (iter_vectorAlienMissiles->get_coordinate_x() + iter_vectorAlienMissiles->get_sizeRadius_x())) )
+			if ((iter_vectorPlayerMissiles->get_coordinate_x() > (iter_vectorAlienMissiles->get_coordinate_x() - iter_vectorAlienMissiles->get_sizeRadius_x()))
+				&& (iter_vectorPlayerMissiles->get_coordinate_x() < (iter_vectorAlienMissiles->get_coordinate_x() + iter_vectorAlienMissiles->get_sizeRadius_x())))
 			{
 				// check if PlayerMissile centre y coordinate lies within y coordinate of alienMissile
-				if ( (iter_vectorPlayerMissiles->get_coordinate_y() > (iter_vectorAlienMissiles->get_coordinate_y() - iter_vectorAlienMissiles->get_sizeRadius_y()))
-					&& (iter_vectorPlayerMissiles->get_coordinate_y() < (iter_vectorAlienMissiles->get_coordinate_y() + iter_vectorAlienMissiles->get_sizeRadius_y())) )
+				if ((iter_vectorPlayerMissiles->get_coordinate_y() > (iter_vectorAlienMissiles->get_coordinate_y() - iter_vectorAlienMissiles->get_sizeRadius_y()))
+					&& (iter_vectorPlayerMissiles->get_coordinate_y() < (iter_vectorAlienMissiles->get_coordinate_y() + iter_vectorAlienMissiles->get_sizeRadius_y())))
 				{
-					iter_vectorAlienMissiles -> DestroyMissile();
-					iter_vectorPlayerMissiles -> DestroyMissile();
-
+					iter_vectorAlienMissiles->DestroyMissile();
+					iter_vectorPlayerMissiles->DestroyMissile();
 				} // END - if
+
 			} // END - if
 
 			iter_vectorPlayerMissiles++;
@@ -386,9 +379,9 @@ bool Game::CheckGameOver()
 	vector<AlienShip>::iterator iter_vectorAlienShips;
 	iter_vectorAlienShips = _vectorAlienShips.begin();
 
-	while ( iter_vectorAlienShips != _vectorAlienShips.end() )
+	while (iter_vectorAlienShips != _vectorAlienShips.end())
 	{
-		if ( iter_vectorAlienShips->get_circleIterator() == _gameBattlefield.get_numberOfCircles() )
+		if (iter_vectorAlienShips->get_circleIterator() == _gameBattlefield.get_numberOfCircles())
 		{
 			_gameGraphics.DrawGameOver(_gameBattlefield, AliensOnOuterCircle); 
 			return 1;
@@ -396,7 +389,7 @@ bool Game::CheckGameOver()
 		iter_vectorAlienShips++;
 	}
 
-	if ( _gamePlayerShip.get_health() == 0)
+	if (_gamePlayerShip.get_health() == 0)
 	{
 		_gameGraphics.DrawGameOver(_gameBattlefield, PlayerDestroyed); 
 		return 1;
@@ -474,9 +467,10 @@ void Game::CreatePlayerShip()
 {
 	float startingAngle = 3.14159/2;	// bottom of battlefield
 
-	PlayerShip tempPlayerShip ("Player1", _gameBattlefield.get_outerCircleRadius_y(), startingAngle, 
-							_gameBattlefield.get_battlefieldCentre_x(), _gameBattlefield.get_battlefieldCentre_y(), 
-							_playerSize_x, _playerSize_y );
+	PlayerShip tempPlayerShip("Player1", _gameBattlefield.get_outerCircleRadius_y(), startingAngle,
+		_gameBattlefield.get_battlefieldCentre_x(), _gameBattlefield.get_battlefieldCentre_y(),
+		_playerSize_x, _playerSize_y);
+
 	_gamePlayerShip = tempPlayerShip;
 }
 
@@ -489,15 +483,14 @@ void Game::CreateAlienShipsVector()
 	_vectorAlienShips.clear();
 
 	float startingAngle = 3.14159/2;
-	for (int circleiterator = 1 ; circleiterator <= 5 ; circleiterator++ )
+	for (int circleiterator = 1; circleiterator <= 5; circleiterator++)
 	{
-		for (int i=1 ; i<=10 ; i++ )		//number of aliens per circle
+		for (int i = 1; i <= 10; i++)		//number of aliens per circle
 		{
-
-			AlienShip tempAlienShip ("Alien", circleiterator, startingAngle, 
-									_gameBattlefield.get_battlefieldCentre_x(), _gameBattlefield.get_battlefieldCentre_y(),
-									_alienSize_x, _alienSize_y,
-									0, 50+5*i, 10+20*i );
+			AlienShip tempAlienShip("Alien", circleiterator, startingAngle,
+				_gameBattlefield.get_battlefieldCentre_x(), _gameBattlefield.get_battlefieldCentre_y(),
+				_alienSize_x, _alienSize_y,
+				0, 50 + 5 * i, 10 + 20 * i);
 
 			_vectorAlienShips.push_back(tempAlienShip);
 
@@ -526,8 +519,9 @@ void Game::AlienShoot()
 
 	ptr_vectorAlienShips  = &_vectorAlienShips[randomAlienShoot];
 
-	AlienMissile tempAlienMissile(ptr_vectorAlienShips->get_radiusFromCentre(), ptr_vectorAlienShips->get_angleFromCentre(), 
-						ptr_vectorAlienShips->get_coordinate_x(), ptr_vectorAlienShips->get_coordinate_y());
+	AlienMissile tempAlienMissile(ptr_vectorAlienShips->get_radiusFromCentre(), ptr_vectorAlienShips->get_angleFromCentre(),
+		ptr_vectorAlienShips->get_coordinate_x(), ptr_vectorAlienShips->get_coordinate_y());
+
 	_vectorAlienMissiles.push_back(tempAlienMissile);
 }
 
@@ -616,10 +610,10 @@ bool Game::CreateSavedAlienShipsVector()
 			loadGame >> savedCircleIterator;
 			loadGame>>savedHealth;
 
-			AlienShip tempAlienShip ("Alien", savedCircleIterator, savedAngle, 
-							_gameBattlefield.get_battlefieldCentre_x(), _gameBattlefield.get_battlefieldCentre_y(),
-							_alienSize_x, _alienSize_y,
-							0, 50+5, 10+20, savedHealth );
+			AlienShip tempAlienShip("Alien", savedCircleIterator, savedAngle,
+				_gameBattlefield.get_battlefieldCentre_x(), _gameBattlefield.get_battlefieldCentre_y(),
+				_alienSize_x, _alienSize_y,
+				0, 50 + 5, 10 + 20, savedHealth);
 
 			_vectorAlienShips.push_back(tempAlienShip);	
 		}

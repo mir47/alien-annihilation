@@ -1,44 +1,9 @@
-﻿  AlienMissile.cpp
-C:\Users\minev\repo_miro\alien-annihilation\alien-annihilation\AlienMissile.cpp(47,70): warning C4244: '=': conversion from 'float' to 'int', possible loss of data
-C:\Users\minev\repo_miro\alien-annihilation\alien-annihilation\AlienMissile.cpp(48,70): warning C4244: '=': conversion from 'float' to 'int', possible loss of data
-  AlienShip.cpp
-C:\Users\minev\repo_miro\alien-annihilation\alien-annihilation\AlienShip.cpp(77,76): warning C4244: '=': conversion from 'double' to 'float', possible loss of data
-C:\Users\minev\repo_miro\alien-annihilation\alien-annihilation\AlienShip.cpp(95,70): warning C4244: '=': conversion from 'float' to 'int', possible loss of data
-C:\Users\minev\repo_miro\alien-annihilation\alien-annihilation\AlienShip.cpp(96,70): warning C4244: '=': conversion from 'float' to 'int', possible loss of data
-  battlefield.cpp
-C:\Users\minev\repo_miro\alien-annihilation\alien-annihilation\battlefield.cpp(18,6): warning C4305: 'initializing': truncation from 'double' to 'float'
-C:\Users\minev\repo_miro\alien-annihilation\alien-annihilation\battlefield.cpp(65,8): warning C4305: '=': truncation from 'double' to 'float'
-C:\Users\minev\repo_miro\alien-annihilation\alien-annihilation\battlefield.cpp(142,41): warning C4244: '=': conversion from 'double' to 'int', possible loss of data
-C:\Users\minev\repo_miro\alien-annihilation\alien-annihilation\battlefield.cpp(143,41): warning C4244: '=': conversion from 'double' to 'int', possible loss of data
-  Game.cpp
-C:\Users\minev\repo_miro\alien-annihilation\alien-annihilation\Game.cpp(475,22): warning C4305: 'initializing': truncation from 'double' to 'float'
-C:\Users\minev\repo_miro\alien-annihilation\alien-annihilation\Game.cpp(491,22): warning C4305: 'initializing': truncation from 'double' to 'float'
-C:\Users\minev\repo_miro\alien-annihilation\alien-annihilation\Game.cpp(504,34): warning C4244: '=': conversion from 'double' to 'float', possible loss of data
-C:\Users\minev\repo_miro\alien-annihilation\alien-annihilation\Game.cpp(507,26): warning C4305: '=': truncation from 'double' to 'float'
+﻿  Game.cpp
+C:\Users\minev\repo_miro\alien-annihilation\alien-annihilation\Game.cpp(468,22): warning C4305: 'initializing': truncation from 'double' to 'float'
+C:\Users\minev\repo_miro\alien-annihilation\alien-annihilation\Game.cpp(485,22): warning C4305: 'initializing': truncation from 'double' to 'float'
+C:\Users\minev\repo_miro\alien-annihilation\alien-annihilation\Game.cpp(497,34): warning C4244: '=': conversion from 'double' to 'float', possible loss of data
+C:\Users\minev\repo_miro\alien-annihilation\alien-annihilation\Game.cpp(500,26): warning C4305: '=': truncation from 'double' to 'float'
   Graphics.cpp
-  Input.cpp
   main.cpp
-  Missile.cpp
-C:\Users\minev\repo_miro\alien-annihilation\alien-annihilation\Missile.cpp(21,8): warning C4305: '=': truncation from 'double' to 'float'
-C:\Users\minev\repo_miro\alien-annihilation\alien-annihilation\Missile.cpp(51,8): warning C4305: '=': truncation from 'double' to 'float'
-  PlayerMissile.cpp
-C:\Users\minev\repo_miro\alien-annihilation\alien-annihilation\PlayerMissile.cpp(62,70): warning C4244: '=': conversion from 'float' to 'int', possible loss of data
-C:\Users\minev\repo_miro\alien-annihilation\alien-annihilation\PlayerMissile.cpp(63,70): warning C4244: '=': conversion from 'float' to 'int', possible loss of data
-C:\Users\minev\repo_miro\alien-annihilation\alien-annihilation\PlayerMissile.cpp(95,70): warning C4244: '=': conversion from 'float' to 'int', possible loss of data
-C:\Users\minev\repo_miro\alien-annihilation\alien-annihilation\PlayerMissile.cpp(96,70): warning C4244: '=': conversion from 'float' to 'int', possible loss of data
-  PlayerShip.cpp
-C:\Users\minev\repo_miro\alien-annihilation\alien-annihilation\PlayerShip.cpp(56,47): warning C4244: '=': conversion from 'float' to 'int', possible loss of data
-C:\Users\minev\repo_miro\alien-annihilation\alien-annihilation\PlayerShip.cpp(57,47): warning C4244: '=': conversion from 'float' to 'int', possible loss of data
-C:\Users\minev\repo_miro\alien-annihilation\alien-annihilation\PlayerShip.cpp(75,47): warning C4244: '=': conversion from 'float' to 'int', possible loss of data
-C:\Users\minev\repo_miro\alien-annihilation\alien-annihilation\PlayerShip.cpp(76,47): warning C4244: '=': conversion from 'float' to 'int', possible loss of data
-  Settings.cpp
-  Ship.cpp
-C:\Users\minev\repo_miro\alien-annihilation\alien-annihilation\Ship.cpp(20,8): warning C4305: '=': truncation from 'double' to 'float'
-C:\Users\minev\repo_miro\alien-annihilation\alien-annihilation\Ship.cpp(62,8): warning C4305: '=': truncation from 'double' to 'float'
-C:\Users\minev\repo_miro\alien-annihilation\alien-annihilation\Ship.cpp(72,47): warning C4244: '=': conversion from 'float' to 'int', possible loss of data
-C:\Users\minev\repo_miro\alien-annihilation\alien-annihilation\Ship.cpp(73,47): warning C4244: '=': conversion from 'float' to 'int', possible loss of data
-C:\Users\minev\repo_miro\alien-annihilation\alien-annihilation\Ship.cpp(104,8): warning C4305: '=': truncation from 'double' to 'float'
-C:\Users\minev\repo_miro\alien-annihilation\alien-annihilation\Ship.cpp(114,47): warning C4244: '=': conversion from 'float' to 'int', possible loss of data
-C:\Users\minev\repo_miro\alien-annihilation\alien-annihilation\Ship.cpp(115,47): warning C4244: '=': conversion from 'float' to 'int', possible loss of data
   Generating Code...
   alien-annihilation.vcxproj -> C:\Users\minev\repo_miro\alien-annihilation\Debug\alien-annihilation.exe
