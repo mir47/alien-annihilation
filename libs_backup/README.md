@@ -1,44 +1,34 @@
-# Setup libraries on Windows with Visual Studio
+# Setup on Windows
 
-Built with:
+## Basic Setup
 
-- Microsoft Visual Studio Community 2022
-- SDL2-2.28.5 ([SDL](https://www.libsdl.org) and [repo](https://github.com/libsdl-org/SDL))
-- SDL_gfxPrimitives-1.5
+- Install Microsoft Visual Studio Community 2022.
+- Open solution file and set build configuration to `x86` (32 bit), and configure depencies on `x86` libs (next step). I could only get `SDL2_gfx` to build for `x86` and not `x64`.
+- `vclib.zip` contains just the necessary library files copied from the `source` folder. This is needed to build the `alien-annihilation` project. Extract and copy this to anywhere e.g. `C:\vclib`, and configure the project settings in Visual Studio (see [Setting up SDL 2 on Visual Studio](https://lazyfoo.net/tutorials/SDL/01_hello_SDL/windows/msvc2019/index.php) for more info). To run the project, copy the `dll` files to the project folder (if not already there).
 
-Steps to setup project: [Setting up SDL 2 on Visual Studio](https://lazyfoo.net/tutorials/SDL/01_hello_SDL/windows/msvc2019/index.php)
+## Source
 
-[Tutorial on Game Programming with SDL](https://lazyfoo.net/tutorials/SDL)
+See `source` folder. These are generally available to download from the internet. They are here as a backup (just in case).
 
-[SDL 1 to 2 Migration Guide](https://wiki.libsdl.org/SDL2/MigrationGuide#Overview_of_new_features)
+- SDL
+  - info: [SDL](https://www.libsdl.org) and [repo](https://github.com/libsdl-org/SDL)
+  - source: `SDL2-devel-2.28.5-VC.zip` 
+  - folders `include` and `lib` contain the dependencies needed for building the `alien-annihilation` project.
+  - folder `include` has header files for `Include directories`
+  - folder `lib` has binary files (`SDL2.lib` and `SDL2main.lib`) for `Library directories`
+  - folder `lib` also has `SDL2.dll` for runtime. Copy paste this dll into project folder `alien-annihilation/alien-annihilation`, and not in top level solution folder `alien-annihilation`.
 
-[SDL release archive](https://www.libsdl.org/release)
+- TTF
+  - source: `SDL2_ttf-devel-2.20.2-VC.zip`
+  - similar structure to SDL folder
 
-## Libraries
+- GFX 
+  - source: `SDL2_gfx-1.0.4.gz` - original SDL2 GFX library.
+  - `SDL2_gfx-1.0.4-build-x86.zip` - extracted SDL2 GFX library (.gz file), with solution built in Visual Studio, for 32-bit (`x86`) config. The outputs from the build are in the folder `/Win32/Debug`, most importantly `SDL2_gfx.lib` and `SDL2_gfx.dll`. The zip file has been manually renamed with `-build-x86` suffix (just as a label), so if extracting to rerun the build, the main folder `SDL2_gfx-1.0.4-build-x86` might need to be renamed to the original `SDL2_gfx-1.0.4`, but this is unconfirmed and untested.
 
-Folder `downloads`:
+## More info:
 
-### SDL
-
-- `SDL2-devel-2.28.5-VC.zip` 
-- folders `include` and `lib` are dependencies for project.
-- `include` has header files - `Include directories`
-- `lib` has `SDL2.lib` and `SDL2main.lib` - `Library directories`
-- `lib` has `SDL2.dll` - used at runtime, copy paste into project folder `alien-annihilation/alien-annihilation`, and not in top level solution folder `alien-annihilation`.
-
-### TTF
-
-- `SDL2_ttf-devel-2.20.2-VC.zip`
-
-### GFX 
-
-- `SDL2_gfx-1.0.4.gz`
-- `SDL2_gfx-1.0.4` is the .gz file, with solution opened and built in Visual Studio, for 32 bit (`x86`). The important build outputs (`SDL2_gfx.lib` and `SDL2_gfx.dll`) are contained in folder `/Win32/Debug`
-
-Folder `vclib`:
-
-- Just the important files copied from the downloads folder. Can copy this to anywhere e.g. `C:\vclib`, and needs to be referenced in the project dependencies.
-
-Notes:
-
-- Set project configuration to `x86` (32 bit), and configure depencies on `x86` libs. I could only get `SDL2_gfx` to build for `x86` and not `x64`.
+- [Setting up SDL 2 on Visual Studio](https://lazyfoo.net/tutorials/SDL/01_hello_SDL/windows/msvc2019/index.php)
+- [Tutorial on Game Programming with SDL](https://lazyfoo.net/tutorials/SDL)
+- [SDL 1 to 2 Migration Guide](https://wiki.libsdl.org/SDL2/MigrationGuide#Overview_of_new_features)
+- [SDL release archive](https://www.libsdl.org/release)
